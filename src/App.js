@@ -1,14 +1,20 @@
 import { Route, Routes } from 'react-router-dom';
+import { AppLayout } from './components/AppLayout';
+import { BookItem } from './pages/BookItem';
+import { BookList } from './pages/BookList';
+import { Home } from './pages/Home';
+import { Statistics } from './pages/Statistics';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="book" element={<BookLayout />}>
-          <Route path="list" element={<BookList />} />
-          <Route path=":item" element={<BookItem />} />
+        <Route path="books">
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<BookItem />} />
         </Route>
+        <Route path="statistics" element={<Statistics />} />
       </Route>
     </Routes>
   );
