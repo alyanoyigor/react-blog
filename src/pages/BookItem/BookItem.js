@@ -1,44 +1,45 @@
 import { CircularProgress } from '@mui/material';
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { URLS } from '../../constants';
+import { getBookItem } from '../../api/books';
+import { Error } from '../../components/Error';
 import { convertDate } from '../../utils';
 
 export const BookItem = () => {
-  const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const [bookData, setBookData] = useState(null);
+  const { bookId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [bookData, setBookData] = useState({});
+  const [error, setError] = useState();
 
   const getBook = useCallback(async () => {
     try {
       setIsLoading(true);
-      const book = await axios.get(`${URLS.BOOKS}/${id}`);
-      setBookData(book.data);
+      const book = await getBookItem(bookId);
+      setBookData(book);
     } catch (error) {
-      console.log(error);
+      setError(error);
     } finally {
       setIsLoading(false);
     }
-  }, [id]);
+  }, [bookId]);
 
   useEffect(() => {
     getBook();
   }, [getBook]);
 
-  if (isLoading || !bookData) {
-    return <CircularProgress />;
-  }
-
-  const { title, description, pageCount, publishDate, excerpt } = bookData;
-  const date = convertDate(publishDate);
   return (
     <>
-      <h1>{title}</h1>
-      <p>{date}</p>
-      <p>Pages: {pageCount}</p>
-      <p>{description}</p>
-      <p>{excerpt}</p>
+      {error && !isLoading && !bookData && <Error>{error}</Error>}
+      {isLoading && !bookData && !error && <CircularProgress />}
+      {bookData && !isLoading && !error && (
+        <div>
+          <h1>{bookData.title}</h1>
+          <p>{convertDate(bookData.publishDate)}</p>
+          <p>Pages: {bookData.pageCount}</p>
+          <p>{bookData.description}</p>
+          <p>{bookData.excerpt}</p>
+        </div>
+      )}
     </>
   );
 };

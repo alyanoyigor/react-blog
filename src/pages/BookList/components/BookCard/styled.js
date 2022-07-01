@@ -3,9 +3,25 @@ import styledEngine from '@mui/styled-engine';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 
+export const StyledCardContainer = styled.div`
+  width: 100%;
+
+  @media (min-width: 425px) {
+    width: 50%;
+  }
+
+  @media (min-width: 768px) {
+    width: 33.3%;
+  }
+
+  @media (min-width: 1440px) {
+    width: 25%;
+  }
+`;
+
 export const StyledBookCard = styledEngine(Card)`
   position: relative;
-  margin: 8px;
+  margin: 4px;
   padding: 8px;
   background-color: #fafafa;
 `;
