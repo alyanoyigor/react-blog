@@ -4,6 +4,7 @@ import { BookItem } from './pages/BookItem';
 import { BookList } from './pages/BookList';
 import { Home } from './pages/Home';
 import { Statistics } from './pages/Statistics';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
