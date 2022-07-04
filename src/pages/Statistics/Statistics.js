@@ -6,7 +6,7 @@ import { Preloader } from '../../components/Preloader';
 import { Table } from './components/Table';
 
 export const Statistics = () => {
-  const { data, error, loading } = useAxios(getBookList);
+  const { data, error, loading } = useAxios(getBookList, true);
 
   return (
     <>

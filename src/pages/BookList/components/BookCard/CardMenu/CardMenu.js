@@ -1,13 +1,13 @@
 import React from 'react';
-import { Popover } from '@mui/material';
+import { Divider, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { StyledCardMenu, StyledMenuButton } from './styled';
+import { StyledMenu } from './styled';
 
 export const CardMenu = (props) => {
   const { menuId, open, anchorEl, onClose, bookId } = props;
 
   return (
-    <Popover
+    <StyledMenu
       id={menuId}
       open={open}
       anchorEl={anchorEl}
@@ -17,13 +17,12 @@ export const CardMenu = (props) => {
         horizontal: 'right',
       }}
     >
-      <StyledCardMenu>
-        <StyledMenuButton>Edit</StyledMenuButton>
-        <StyledMenuButton>Delete</StyledMenuButton>
-        <StyledMenuButton as={Link} to={`/books/${bookId}`}>
-          Open
-        </StyledMenuButton>
-      </StyledCardMenu>
-    </Popover>
+      <MenuItem onClick={onClose}>Edit</MenuItem>
+      <MenuItem onClick={onClose}>Delete</MenuItem>
+      <Divider />
+      <MenuItem onClick={onClose} as={Link} to={`/books/${bookId}`}>
+        Open
+      </MenuItem>
+    </StyledMenu>
   );
 };

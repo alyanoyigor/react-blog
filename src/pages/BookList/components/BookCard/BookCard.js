@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { CardContent, Typography } from '@mui/material';
 import { CardMenu } from './CardMenu';
+import { BookImage } from './BookImage';
 import {
   StyledCardContainer,
   StyledBookCard,
   StyledIconButton,
   StyledShortText,
-  StyledText,
 } from './styled';
 
 export const BookCard = (props) => {
-  const { title, description, id, publishDate } = props;
+  const { title, description, id: bookId, publishDate } = props;
   const [anchorEl, setAnchorEl] = useState();
   const date = moment(publishDate).format('MMM DD, YYYY');
 
@@ -28,26 +29,29 @@ export const BookCard = (props) => {
 
   return (
     <StyledCardContainer>
-      <StyledBookCard variant="outlined">
+      <StyledBookCard>
         <StyledIconButton aria-describedby={menuId} onClick={onClick}>
-          <MoreVertIcon fontSize="small" />
+          <MoreVertIcon />
         </StyledIconButton>
         <CardMenu
           onClose={handleClose}
           menuId={menuId}
-          bookId={id}
+          bookId={bookId}
           open={open}
           anchorEl={anchorEl}
         />
-        <StyledText>
-          <strong>Name:</strong> {title}
-        </StyledText>
-        <StyledShortText>
-          <strong>Description:</strong> {description}
-        </StyledShortText>
-        <StyledText>
-          <strong>Date:</strong> {date}
-        </StyledText>
+        <BookImage bookId={bookId} />
+        <CardContent>
+          <Typography gutterBottom variant="h5">
+            {title}
+          </Typography>
+          <Typography variant="body1" color="text.main">
+            {date}
+          </Typography>
+          <StyledShortText variant="body2" color="text.secondary">
+            {description}
+          </StyledShortText>
+        </CardContent>
       </StyledBookCard>
     </StyledCardContainer>
   );

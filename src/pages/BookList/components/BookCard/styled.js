@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import styledEngine from '@mui/styled-engine';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
@@ -21,16 +21,11 @@ export const StyledCardContainer = styled.div`
 
 export const StyledBookCard = styledEngine(Card)`
   position: relative;
-  margin: 4px;
-  padding: 8px;
+  margin: 8px;
   background-color: #fafafa;
 `;
 
-export const StyledText = styled.p`
-  letter-spacing: 0.5px;
-`;
-
-export const StyledShortText = styled(StyledText)`
+export const StyledShortText = styledEngine(Typography)`
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;

@@ -1,25 +1,23 @@
-import styled from 'styled-components';
+import { Menu, styled } from '@mui/material';
 
-export const StyledCardMenu = styled.div`
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-`;
+export const StyledMenu = styled(Menu)(() => ({
+  '& .MuiMenu-paper': {
+    marginLeft: 5,
+    maxWidth: 100,
+    width: '100%',
+    overflow: 'visible',
+  },
 
-export const StyledMenuButton = styled.button`
-  display: flex;
-  align-items: center;
-  color: #000000;
-  height: 25px;
-  background-color: transparent;
-  border: none;
-  font-size: 14px;
-  text-decoration: none;
-  text-align: start;
-  padding: 0 0 0 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d6e1ff;
-  }
-`;
+  '& .MuiMenu-paper:before': {
+    content: '""',
+    display: 'block',
+    position: 'absolute',
+    top: 20,
+    left: -5,
+    width: 10,
+    height: 10,
+    backgroundColor: 'white',
+    transform: 'translateY(-50%) rotate(45deg)',
+    zIndex: 1,
+  },
+}));

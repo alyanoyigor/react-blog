@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-export const useAxios = (fetchFunc) => {
+export const useAxios = (fetchFunc, withToast) => {
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -19,11 +19,13 @@ export const useAxios = (fetchFunc) => {
   };
 
   useEffect(() => {
-    toast.promise(getData, {
-      pending: 'Searching data for you',
-      success: 'Data has been loaded successfully',
-      error: 'Failed to load data',
-    });
+    withToast
+      ? toast.promise(getData, {
+          pending: 'Searching data for you',
+          success: 'Data has been loaded successfully',
+          error: 'Failed to load data',
+        })
+      : getData();
   }, []);
 
   return { data, error, loading };

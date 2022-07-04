@@ -11,10 +11,4 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #080808;
     color: white;
   }
-
-  body,
-  button,
-  a {
-    font-family: 'Questrial', sans-serif;
-  }
 `;

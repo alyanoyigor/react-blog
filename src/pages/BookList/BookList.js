@@ -7,7 +7,7 @@ import { BookCard } from './components/BookCard';
 import { StyledBookList } from './styled';
 
 export const BookList = () => {
-  const { data: bookList, error, loading } = useAxios(getBookList);
+  const { data: bookList, error, loading } = useAxios(getBookList, true);
 
   return (
     <>
