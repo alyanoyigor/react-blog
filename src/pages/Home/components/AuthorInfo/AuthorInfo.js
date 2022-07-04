@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthorImagePath from '../../assets/img/authorImage.jpeg';
+import AuthorImagePath from '../../../../assets/img/authorImage.jpeg';
 import {
   StyledAuthorInfoContainer,
   StyledCircle,
