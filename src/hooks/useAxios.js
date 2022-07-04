@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 export const useAxios = (fetchFunc) => {
@@ -6,7 +6,7 @@ export const useAxios = (fetchFunc) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
-  const getData = useCallback(async () => {
+  const getData = async () => {
     try {
       setLoading(true);
       const newData = await fetchFunc();
@@ -16,7 +16,7 @@ export const useAxios = (fetchFunc) => {
     } finally {
       setLoading(false);
     }
-  }, [fetchFunc]);
+  };
 
   useEffect(() => {
     toast.promise(getData, {
@@ -24,7 +24,7 @@ export const useAxios = (fetchFunc) => {
       success: 'Data has been loaded successfully',
       error: 'Failed to load data',
     });
-  }, [getData]);
+  }, []);
 
   return { data, error, loading };
 };

@@ -14,15 +14,13 @@ export const BookItem = () => {
     loading,
   } = useAxios(() => getBookItem(bookId));
 
-  const date = moment(bookData.publishDate).format('MMM DD, YYYY');
-
   return (
     <>
       {loading && !bookData && !error && <Preloader />}
       {bookData && !loading && !error && (
         <div>
           <h1>{bookData.title}</h1>
-          <p>{date}</p>
+          <p>{moment(bookData.publishDate).format('MMM DD, YYYY')}</p>
           <p>{bookData.pageCount} pages</p>
           <p>{bookData.description}</p>
           <p>{bookData.excerpt}</p>
