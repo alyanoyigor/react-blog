@@ -1,11 +1,18 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as BlogIcon } from '../../assets/svg/blogIcon.svg';
 
-export const StyledLogo = styled.div`
+export const StyledLogo = styled(NavLink).attrs({ to: '/' })`
   display: flex;
   align-items: flex-end;
+  text-decoration: none;
+  color: inherit;
   gap: 8px;
   flex-shrink: 0;
+
+  &.active {
+    pointer-events: none;
+  }
 `;
 
 export const StyledLogoText = styled.span`

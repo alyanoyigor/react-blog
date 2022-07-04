@@ -1,10 +1,10 @@
 import React from 'react';
-import { CircularProgress } from '@mui/material';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { getBookItem } from '../../api/books';
 import { Error } from '../../components/Error';
 import { useAxios } from '../../hooks';
-import { convertDate } from '../../utils';
+import { Preloader } from '../../components/Preloader';
 
 export const BookItem = () => {
   const { bookId } = useParams();
@@ -14,14 +14,16 @@ export const BookItem = () => {
     loading,
   } = useAxios(() => getBookItem(bookId));
 
+  const date = moment(bookData.publishDate).format('MMM DD, YYYY');
+
   return (
     <>
-      {loading && !bookData && !error && <CircularProgress />}
+      {loading && !bookData && !error && <Preloader />}
       {bookData && !loading && !error && (
         <div>
           <h1>{bookData.title}</h1>
-          <p>{convertDate(bookData.publishDate)}</p>
-          <p>Pages: {bookData.pageCount}</p>
+          <p>{date}</p>
+          <p>{bookData.pageCount} pages</p>
           <p>{bookData.description}</p>
           <p>{bookData.excerpt}</p>
         </div>

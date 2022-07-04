@@ -17,6 +17,10 @@ export const StyledNavLink = styled(NavLink)`
   color: inherit;
   transform: color 0.2s ease;
 
+  &.active {
+    pointer-events: none;
+  }
+
   &.active:after {
     position: absolute;
     background-color: #ffffff;

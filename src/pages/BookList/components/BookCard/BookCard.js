@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { convertDate } from '../../../../utils';
 import { CardMenu } from './CardMenu';
 import {
   StyledCardContainer,
@@ -12,8 +12,8 @@ import {
 
 export const BookCard = (props) => {
   const { title, description, id, publishDate } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const date = convertDate(publishDate);
+  const [anchorEl, setAnchorEl] = useState();
+  const date = moment(publishDate).format('MMM DD, YYYY');
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
