@@ -11,7 +11,7 @@ export const AppLayout = () => (
     <ToastContainer
       autoClose={3000}
       theme="dark"
-      position="top-center"
+      position="top-right"
       hideProgressBar={true}
     />
     <Header />
