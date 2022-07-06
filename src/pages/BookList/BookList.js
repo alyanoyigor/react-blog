@@ -11,7 +11,7 @@ export const BookList = () => {
 
   return (
     <>
-      {loading && !bookList && !error && <Preloader />}
+      {loading && !error && <Preloader />}
       {bookList && !loading && !error && (
         <StyledBookList>
           {bookList.map((bookItem) => (

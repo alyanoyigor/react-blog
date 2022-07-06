@@ -17,7 +17,7 @@ export const BookItem = () => {
 
   return (
     <>
-      {loading && !bookData && !error && <Preloader />}
+      {loading && !error && <Preloader />}
       {bookData && !loading && !error && (
         <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
           <Typography mb={1} variant="h4" component="h1">

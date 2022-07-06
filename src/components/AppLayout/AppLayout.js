@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { GlobalStyle } from '../../styled';
+import { GlobalStyle } from '../../styles';
 import { Header } from '../Header';
 
 export const AppLayout = () => (
@@ -11,7 +11,7 @@ export const AppLayout = () => (
     <ToastContainer
       autoClose={3000}
       theme="dark"
-      position="bottom-left"
+      position="top-center"
       hideProgressBar={true}
     />
     <Header />

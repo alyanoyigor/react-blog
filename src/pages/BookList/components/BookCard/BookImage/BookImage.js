@@ -13,7 +13,7 @@ export const BookImage = (props) => {
 
   return (
     <>
-      {loading && !src && !error && (
+      {loading && !error && (
         <Skeleton
           variant="rectangular"
           width="100%"

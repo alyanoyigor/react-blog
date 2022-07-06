@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 export const useAxios = (fetchFunc, withToast) => {
   const [data, setData] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {

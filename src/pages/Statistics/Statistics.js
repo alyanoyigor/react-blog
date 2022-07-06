@@ -10,7 +10,7 @@ export const Statistics = () => {
 
   return (
     <>
-      {loading && !data && !error && <Preloader />}
+      {loading && !error && <Preloader />}
       {data && !loading && !error && <Table bookList={data} />}
       {error && !loading && <Error>{error}</Error>}
     </>
