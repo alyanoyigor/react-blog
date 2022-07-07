@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, MenuItem } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { StyledMenu } from './styled';
+import { Link } from 'react-router-dom';
 
 export const CardMenu = (props) => {
   const { menuId, open, anchorEl, onClose, bookId } = props;
@@ -20,7 +20,7 @@ export const CardMenu = (props) => {
       <MenuItem onClick={onClose}>Edit</MenuItem>
       <MenuItem onClick={onClose}>Delete</MenuItem>
       <Divider />
-      <MenuItem onClick={onClose} as={Link} to={`/books/${bookId}`}>
+      <MenuItem component={Link} to={`/books/${bookId}`} onClick={onClose}>
         Open
       </MenuItem>
     </StyledMenu>

@@ -1,17 +1,22 @@
-import React from 'react';
-import { useAxios } from '../../hooks';
-import { getBookList } from '../../api/books';
+import React, { useEffect } from 'react';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
+import { getBooksFetch } from '../../store/actions/books';
 import { Table } from './components/Table';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Statistics = () => {
-  const { data, error, loading } = useAxios(getBookList, true);
+  const { books, error, loading } = useSelector((state) => state.booksReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBooksFetch());
+  }, [dispatch]);
 
   return (
     <>
       {loading && !error && <Preloader />}
-      {data && !loading && !error && <Table bookList={data} />}
+      {books && !loading && !error && <Table bookList={books} />}
       {error && !loading && <Error>{error}</Error>}
     </>
   );

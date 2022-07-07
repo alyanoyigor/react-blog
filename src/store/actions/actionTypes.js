@@ -1,0 +1,11 @@
+export const ERROR_RESPONSE = 'ERROR_RESPONSE';
+export const GET_BOOKS = 'GET_BOOKS';
+export const GET_BOOKS_SUCCESS = 'GET_BOOKS_SUCCESS';
+
+export const GET_BOOK = 'GET_BOOK';
+export const GET_BOOK_SUCCESS = 'GET_BOOK_SUCCESS';
+
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+
+export const BEGIN_LOADING = 'BEGIN_LOADING';
+export const END_LOADING = 'END_LOADING';

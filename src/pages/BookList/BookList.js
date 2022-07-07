@@ -1,37 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { getBookList } from '../../api/books';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Error } from '../../components/Error';
-import { useAxios } from '../../hooks';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
+import { getBooksFetch, setCurrentPage } from '../../store/actions/books';
 import { BookCardList } from './components/BookCardList';
 
 export const BookList = () => {
-  const { data: books, error, loading } = useAxios(getBookList, true);
-  const [currentPage, setCurrentPage] = useState(
-    Number(localStorage.getItem('page')) || 1
+  const dispatch = useDispatch();
+  const { currentPage, booksPerPage, error, loading, books } = useSelector(
+    (state) => state.booksReducer
   );
 
-  const booksPerPage = 10;
   const lastBookIndex = currentPage * booksPerPage;
   const firstBookIndex = lastBookIndex - booksPerPage;
   const currentBooks = books && books.slice(firstBookIndex, lastBookIndex);
 
-  const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const savePageIndex = useCallback(
-    () => localStorage.setItem('page', currentPage),
-    [currentPage]
-  );
+  const handlePaginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
   useEffect(() => {
-    window.addEventListener('beforeunload', savePageIndex);
-
-    return () => {
-      savePageIndex();
-      window.removeEventListener('beforeunload', savePageIndex);
-    };
-  }, [savePageIndex]);
+    dispatch(getBooksFetch());
+  }, [dispatch]);
 
   return (
     <>

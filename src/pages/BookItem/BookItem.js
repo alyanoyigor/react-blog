@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getBookItem } from '../../api/books';
 import { Error } from '../../components/Error';
-import { useAxios } from '../../hooks';
 import { Preloader } from '../../components/Preloader';
 import { Box, Typography } from '@mui/material';
 import { StyledBackIcon, StyledButton } from './styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookFetch } from '../../store/actions/books';
 
 export const BookItem = () => {
   const { bookId } = useParams();
-  const {
-    error,
-    data: bookData,
-    loading,
-  } = useAxios(() => getBookItem(bookId), true);
+  const { bookData, error, loading } = useSelector(
+    (state) => state.booksReducer
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getBookFetch(bookId));
+  }, [dispatch, bookId]);
 
   return (
     <>
