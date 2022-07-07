@@ -14,7 +14,7 @@ export const BookList = () => {
 
   const lastBookIndex = currentPage * booksPerPage;
   const firstBookIndex = lastBookIndex - booksPerPage;
-  const currentBooks = books && books.slice(firstBookIndex, lastBookIndex);
+  const currentBooks = books.slice(firstBookIndex, lastBookIndex);
 
   const handlePaginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
