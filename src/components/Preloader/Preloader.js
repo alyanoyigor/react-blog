@@ -1,5 +1,5 @@
-import { Box, CircularProgress } from '@mui/material';
 import React from 'react';
+import { Box, CircularProgress } from '@mui/material';
 
 export const Preloader = () => {
   return (

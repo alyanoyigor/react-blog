@@ -7,8 +7,8 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { StyledTableCell, StyledTableRow } from './styled';
 import moment from 'moment';
+import { StyledTableCell, StyledTableRow } from './styled';
 
 export const Table = (props) => {
   const { bookList } = props;

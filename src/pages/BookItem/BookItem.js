@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { Box, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
-import { Box, Typography } from '@mui/material';
-import { StyledBackIcon, StyledButton } from './styled';
-import { useDispatch, useSelector } from 'react-redux';
 import { getBookFetch } from '../../store/actions/books';
+import { StyledBackIcon, StyledButton } from './styled';
 
 export const BookItem = () => {
   const { bookId } = useParams();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, MenuItem } from '@mui/material';
-import { StyledMenu } from './styled';
 import { Link } from 'react-router-dom';
+import { StyledMenu } from './styled';
 
 export const CardMenu = (props) => {
   const { menuId, open, anchorEl, onClose, bookId } = props;
