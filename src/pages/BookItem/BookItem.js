@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
-import { Box, Typography } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Error } from '../../components/Error';
-import { Preloader } from '../../components/Preloader';
-import { getBookFetch } from '../../store/actions/books';
-import { StyledBackIcon, StyledButton } from './styled';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { Box, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Error } from "../../components/Error";
+import { Preloader } from "../../components/Preloader";
+import { bookItemFetchStart } from "./actions/bookItem";
+import { StyledBackIcon, StyledButton } from "./styled";
+
+import * as selectors from "./selectors/bookItem";
 
 export const BookItem = () => {
   const { bookId } = useParams();
-  const { bookData, error, loading } = useSelector(
-    (state) => state.booksReducer
+
+  const loading = useSelector(selectors.bookItemLoadingSelector);
+
+  const bookData = useSelector((state) =>
+    selectors.bookItemDataSelector(state)
   );
+  const error = useSelector(selectors.bookItemErrorSelector);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getBookFetch(bookId));
+    dispatch(bookItemFetchStart(bookId));
   }, [dispatch, bookId]);
 
   return (
@@ -34,7 +41,7 @@ export const BookItem = () => {
               {bookData.title}
             </Typography>
             <Typography variant="subtitle1" component="p">
-              {moment(bookData.publishDate).format('MMM DD, YYYY')}
+              {moment(bookData.publishDate).format("MMM DD, YYYY")}
             </Typography>
             <Typography>{bookData.pageCount} pages</Typography>
             <Typography>{bookData.description}</Typography>
