@@ -1,0 +1,1 @@
+export { statisticsFetchWatcher } from './statistics';
