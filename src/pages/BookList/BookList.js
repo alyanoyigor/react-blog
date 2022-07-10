@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { BookCardList } from './components/BookCardList';
+import { bookListFetchStart } from './actions/bookList';
 
 import * as selectors from './selectors/bookList';
-import { useState } from 'react';
-import { bookListFetchStart } from './actions/bookList';
 
 export const BookList = () => {
   const [currentPage, setCurrentPage] = useState(1);
