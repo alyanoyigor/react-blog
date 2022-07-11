@@ -4,7 +4,7 @@ import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { BookCardList } from './components/BookCardList';
-import { bookListFetchStart } from './actions/bookList';
+import { bookListFetchStart } from './reducers/bookList';
 
 import * as selectors from './selectors/bookList';
 

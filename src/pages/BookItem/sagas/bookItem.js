@@ -1,22 +1,21 @@
-import { put, call, takeLatest } from "redux-saga/effects";
-import { getBookItem } from "../../../api/books";
-import { BOOK_ITEM_FETCH_START } from "../action-types/bookItem";
+import { put, call, takeLatest } from 'redux-saga/effects';
+import { getBookItem } from '../../../api/books';
 import {
   bookItemFetchError,
   bookItemFetchInProgress,
   bookItemFetchSuccess,
-} from "../actions/bookItem";
+} from '../reducers/bookItem';
 
 function* bookFetchSaga({ payload: { id } }) {
   try {
     yield put(bookItemFetchInProgress());
     const data = yield call(getBookItem, id);
-    yield put(bookItemFetchSuccess(data));
+    yield put(bookItemFetchSuccess({ data }));
   } catch (error) {
     yield put(bookItemFetchError());
   }
 }
 
 export function* bookFetchWatcher() {
-  yield takeLatest(BOOK_ITEM_FETCH_START, bookFetchSaga);
+  yield takeLatest('bookItem/bookItemFetchStart', bookFetchSaga);
 }

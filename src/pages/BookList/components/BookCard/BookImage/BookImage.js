@@ -29,7 +29,7 @@ export const BookImage = (props) => {
           component="img"
           height="200"
           image={
-            'https://kravmaganewcastle.com.au/wp-content/uploads/2017/04/default-image-620x600.jpg'
+            'https://i0.wp.com/streampeak.com.sg/wp-content/themes/firstcom/img/sample.jpg'
           }
           alt=""
         />

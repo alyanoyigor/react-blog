@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
-import { statisticsFetchStart } from './actions/statistics';
+import { statisticsFetchStart } from './reducers/statistics';
 import { Table } from './components/Table';
 
 import * as selectors from './selectors/statistics';

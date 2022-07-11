@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import { Box, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import { Error } from "../../components/Error";
-import { Preloader } from "../../components/Preloader";
-import { bookItemFetchStart } from "./actions/bookItem";
-import { StyledBackIcon, StyledButton } from "./styled";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { Box, Typography } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Error } from '../../components/Error';
+import { Preloader } from '../../components/Preloader';
+import { bookItemFetchStart } from './reducers/bookItem';
+import { StyledBackIcon, StyledButton } from './styled';
 
-import * as selectors from "./selectors/bookItem";
+import * as selectors from './selectors/bookItem';
 
 export const BookItem = () => {
   const { bookId } = useParams();
@@ -24,7 +24,7 @@ export const BookItem = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(bookItemFetchStart(bookId));
+    dispatch(bookItemFetchStart({ id: bookId }));
   }, [dispatch, bookId]);
 
   return (
@@ -41,7 +41,7 @@ export const BookItem = () => {
               {bookData.title}
             </Typography>
             <Typography variant="subtitle1" component="p">
-              {moment(bookData.publishDate).format("MMM DD, YYYY")}
+              {moment(bookData.publishDate).format('MMM DD, YYYY')}
             </Typography>
             <Typography>{bookData.pageCount} pages</Typography>
             <Typography>{bookData.description}</Typography>

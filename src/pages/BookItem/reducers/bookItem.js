@@ -1,8 +1,4 @@
-import {
-  BOOK_ITEM_FETCH_IN_PROGRESS,
-  BOOK_ITEM_FETCH_SUCCESS,
-  BOOK_ITEM_FETCH_ERROR,
-} from "../action-types/bookItem";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {},
@@ -10,22 +6,34 @@ const initialState = {
   loading: true,
 };
 
-const bookItemReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case BOOK_ITEM_FETCH_IN_PROGRESS: {
-      return { ...state, loading: true, error: null };
-    }
-
-    case BOOK_ITEM_FETCH_SUCCESS: {
+const bookItemSlice = createSlice({
+  name: 'bookItem',
+  initialState,
+  reducers: {
+    bookItemFetchStart: (_state, action) => ({
+      payload: { id: action.payload.id },
+    }),
+    bookItemFetchInProgress: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    bookItemFetchSuccess: (state, action) => {
       const { data } = action.payload;
-      return { ...state, data, loading: false };
-    }
+      state.data = data;
+      state.loading = false;
+    },
+    bookItemFetchError: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+  },
+});
 
-    case BOOK_ITEM_FETCH_ERROR:
-      return { ...state, loading: false, error: true };
-    default:
-      return state;
-  }
-};
+export const {
+  bookItemFetchStart,
+  bookItemFetchInProgress,
+  bookItemFetchSuccess,
+  bookItemFetchError,
+} = bookItemSlice.actions;
 
-export default bookItemReducer;
+export default bookItemSlice.reducer;

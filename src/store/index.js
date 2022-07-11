@@ -1,17 +1,16 @@
-import {
-  legacy_createStore as createStore,
-  applyMiddleware,
-  compose,
-} from "redux";
-import createSagaMiddleware from "redux-saga";
+import { applyMiddleware, compose, configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 
-import rootSaga from "./sagas";
-import rootReducer from "./reducers";
+import bookItemReducer from '../pages/BookItem/reducers/bookItem';
+import bookListReducer from '../pages/BookList/reducers/bookList';
+import statisticsReducer from '../pages/Statistics/reducers/statistics';
+
+import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
@@ -22,7 +21,15 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 );
 
-const store = createStore(rootReducer, enhancer);
+const store = configureStore({
+  reducer: {
+    bookItem: bookItemReducer,
+    bookList: bookListReducer,
+    statistics: statisticsReducer,
+  },
+  middleware: [sagaMiddleware],
+});
+
 sagaMiddleware.run(rootSaga);
 
 export default store;
