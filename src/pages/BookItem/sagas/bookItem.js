@@ -3,6 +3,7 @@ import { getBookItem } from '../../../api/books';
 import {
   bookItemFetchError,
   bookItemFetchInProgress,
+  bookItemFetchStart,
   bookItemFetchSuccess,
 } from '../reducers/bookItem';
 
@@ -17,5 +18,5 @@ function* bookFetchSaga({ payload: { id } }) {
 }
 
 export function* bookFetchWatcher() {
-  yield takeLatest('bookItem/bookItemFetchStart', bookFetchSaga);
+  yield takeLatest(bookItemFetchStart.type, bookFetchSaga);
 }

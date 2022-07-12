@@ -3,6 +3,7 @@ import { getBookList } from '../../../api/books';
 import {
   statisticsFetchError,
   statisticsFetchInProgress,
+  statisticsFetchStart,
   statisticsFetchSuccess,
 } from '../reducers/statistics';
 
@@ -17,5 +18,5 @@ function* statisticsFetchSaga() {
 }
 
 export function* statisticsFetchWatcher() {
-  yield takeLatest('statistics/statisticsFetchStart', statisticsFetchSaga);
+  yield takeLatest(statisticsFetchStart.type, statisticsFetchSaga);
 }
