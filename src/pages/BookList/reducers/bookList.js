@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import * as actions from '../actions/bookList';
 
 const initialState = {
   data: [],
@@ -6,24 +7,16 @@ const initialState = {
   loading: true,
 };
 
+const bookListSliceName = String(Symbol('BOOK_LIST_SLICE'));
+
 const bookListSlice = createSlice({
-  name: 'bookList',
+  name: bookListSliceName,
   initialState,
   reducers: {
-    bookListFetchStart: () => {},
-    bookListFetchInProgress: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    bookListFetchSuccess: (state, action) => {
-      const { data } = action.payload;
-      state.data = data;
-      state.loading = false;
-    },
-    bookListFetchError: (state) => {
-      state.loading = false;
-      state.error = true;
-    },
+    bookListFetchStart: actions.bookListFetchStartAction,
+    bookListFetchInProgress: actions.bookListFetchInProgressAction,
+    bookListFetchSuccess: actions.bookListFetchSuccessAction,
+    bookListFetchError: actions.bookListFetchErrorAction,
   },
 });
 

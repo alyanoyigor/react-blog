@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import * as actions from '../actions/statistics';
 
 const initialState = {
   data: [],
@@ -6,24 +7,16 @@ const initialState = {
   loading: true,
 };
 
+const statisticsSliceName = String(Symbol('STATISTICS_SLICE'));
+
 const statisticsSlice = createSlice({
-  name: 'statistics',
+  name: statisticsSliceName,
   initialState,
   reducers: {
-    statisticsFetchStart: () => {},
-    statisticsFetchInProgress: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    statisticsFetchSuccess: (state, action) => {
-      const { data } = action.payload;
-      state.data = data;
-      state.loading = false;
-    },
-    statisticsFetchError: (state) => {
-      state.loading = false;
-      state.error = true;
-    },
+    statisticsFetchStart: actions.statisticsFetchStartAction,
+    statisticsFetchInProgress: actions.statisticsFetchInProgressAction,
+    statisticsFetchSuccess: actions.statisticsFetchSuccessAction,
+    statisticsFetchError: actions.statisticsFetchErrorAction,
   },
 });
 
