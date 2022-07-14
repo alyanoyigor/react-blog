@@ -17,3 +17,12 @@ export const getBookItem = async (bookId) => {
     return Promise.reject(error);
   }
 };
+
+export const createBook = async (book) => {
+  try {
+    const bookData = await client.post('/books', book);
+    return bookData;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

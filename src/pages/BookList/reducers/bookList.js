@@ -13,6 +13,10 @@ const bookListSlice = createSlice({
   name: bookListSliceName,
   initialState,
   reducers: {
+    bookListAddBookStart: actions.bookListAddBookStartAction,
+    bookListAddBookInProgress: actions.bookListAddBookInProgressAction,
+    bookListAddBookSuccess: actions.bookListAddBookSuccessAction,
+    bookListAddBookError: actions.bookListAddBookErrorAction,
     bookListFetchStart: actions.bookListFetchStartAction,
     bookListFetchInProgress: actions.bookListFetchInProgressAction,
     bookListFetchSuccess: actions.bookListFetchSuccessAction,
@@ -21,6 +25,10 @@ const bookListSlice = createSlice({
 });
 
 export const {
+  bookListAddBookInProgress,
+  bookListAddBookStart,
+  bookListAddBookSuccess,
+  bookListAddBookError,
   bookListFetchStart,
   bookListFetchInProgress,
   bookListFetchSuccess,

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
 import * as paginationSelectors from '../../components/Pagination/selectors/pagination';
 import { Modal } from '../../components/Modal';
+import { CreateBookForm } from './components/CreateBookForm';
 import { BookCardList } from './components/BookCardList';
 import { bookListFetchStart } from './reducers/bookList';
 
@@ -37,6 +38,10 @@ export const BookList = () => {
     dispatch(paginationChangePage({ page: pageNumber }));
   };
 
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
   useEffect(() => {
     dispatch(bookListFetchStart());
   }, [dispatch]);
@@ -44,7 +49,6 @@ export const BookList = () => {
   return (
     <>
       {loading && !error && <Preloader />}
-
       {!loading && !error && (
         <>
           <Box textAlign="right" mb={1}>
@@ -57,10 +61,11 @@ export const BookList = () => {
             </Button>
           </Box>
           <BookCardList bookList={currentBooks} />
-          <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
-            <form>
-              
-            </form>
+          <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+            <Typography mb={1} textAlign="center" variant="h5" component="h1">
+              Create book
+            </Typography>
+            <CreateBookForm />
           </Modal>
         </>
       )}
