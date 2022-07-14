@@ -1,8 +1,8 @@
 export const bookListFetchStartAction = () => {};
 
-export const bookListAddBookStartAction = (_state, action) => ({
-  payload: { bookData: action.payload.bookData },
-});
+export const bookListAddBookStartAction = (state, action) => {
+  state.payload = { bookData: action.payload.bookData };
+};
 
 export const bookListAddBookInProgressAction = (state) => {
   state.loading = true;
@@ -17,6 +17,7 @@ export const bookListAddBookErrorAction = (state) => {
 export const bookListAddBookSuccessAction = (state, action) => {
   const { data } = action.payload;
   state.data.push(data);
+  state.loading = false;
 };
 
 export const bookListFetchInProgressAction = (state) => {

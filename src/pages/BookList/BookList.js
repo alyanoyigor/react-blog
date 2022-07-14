@@ -65,11 +65,11 @@ export const BookList = () => {
             <Typography mb={1} textAlign="center" variant="h5" component="h1">
               Create book
             </Typography>
-            <CreateBookForm />
+            <CreateBookForm onCloseModal={handleCloseModal} />
           </Modal>
         </>
       )}
-      {currentBooks.length > booksPerPage && !loading && !error && (
+      {books.length > booksPerPage && !loading && !error && (
         <Pagination
           currentPage={currentPage}
           itemsPerPage={booksPerPage}

@@ -6,7 +6,9 @@ import { Input } from '../../../../components/Input/Input';
 import { bookListAddBookStart } from '../../reducers/bookList';
 import { StyledForm } from './styled';
 
-export const CreateBookForm = () => {
+export const CreateBookForm = (props) => {
+  const { onCloseModal } = props;
+
   const {
     register,
     handleSubmit,
@@ -16,6 +18,7 @@ export const CreateBookForm = () => {
 
   const onSubmit = (data) => {
     dispatch(bookListAddBookStart({ bookData: data }));
+    onCloseModal();
   };
 
   return (
