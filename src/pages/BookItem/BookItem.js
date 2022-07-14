@@ -15,9 +15,7 @@ export const BookItem = () => {
 
   const loading = useSelector(selectors.bookItemLoadingSelector);
 
-  const bookData = useSelector((state) =>
-    selectors.bookItemDataSelector(state)
-  );
+  const bookData = useSelector(selectors.bookItemDataSelector);
   const error = useSelector(selectors.bookItemErrorSelector);
 
   const dispatch = useDispatch();

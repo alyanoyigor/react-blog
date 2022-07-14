@@ -10,7 +10,7 @@ import * as selectors from './selectors/statistics';
 export const Statistics = () => {
   const dispatch = useDispatch();
 
-  const books = useSelector((state) => selectors.statisticsDataSelector(state));
+  const books = useSelector(selectors.statisticsDataSelector);
   const loading = useSelector(selectors.statisticsLoadingSelector);
   const error = useSelector(selectors.statisticsErrorSelector);
 
