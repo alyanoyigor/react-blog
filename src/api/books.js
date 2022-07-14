@@ -2,7 +2,7 @@ import client from './client';
 
 export const getBookList = async () => {
   try {
-    const booksData = await client.get('/Books');
+    const booksData = await client.get('/books');
     return booksData;
   } catch (error) {
     return Promise.reject(error);
@@ -11,7 +11,7 @@ export const getBookList = async () => {
 
 export const getBookItem = async (bookId) => {
   try {
-    const bookData = await client.get(`/Books/${bookId}`);
+    const bookData = await client.get(`/books/${bookId}`);
     return bookData;
   } catch (error) {
     return Promise.reject(error);

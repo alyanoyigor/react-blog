@@ -19,4 +19,14 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     border: 0,
   },
+
+  '&:last-child td:last-child, &:last-child th:last-child': {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    WebkitBoxOrient: 'vertical',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    paddingBottom: 0,
+    minWidth: '200px'
+  },
 }));

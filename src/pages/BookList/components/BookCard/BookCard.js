@@ -12,7 +12,7 @@ import {
 } from './styled';
 
 export const BookCard = (props) => {
-  const { title, description, id: bookId, publishDate } = props;
+  const { title, description, _id: bookId, date: publishDate, index } = props;
   const [anchorEl, setAnchorEl] = useState();
   const date = moment(publishDate).format('MMM DD, YYYY');
 
@@ -40,7 +40,7 @@ export const BookCard = (props) => {
           open={open}
           anchorEl={anchorEl}
         />
-        <BookImage bookId={bookId} />
+        <BookImage index={index} />
         <CardContent>
           <Typography gutterBottom variant="h5">
             {title}

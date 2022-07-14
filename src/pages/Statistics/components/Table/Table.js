@@ -18,7 +18,8 @@ export const Table = (props) => {
       <MUITable>
         <TableHead>
           <TableRow>
-            <StyledTableCell component="th">Id</StyledTableCell>
+            <StyledTableCell component="th">#</StyledTableCell>
+            <StyledTableCell>Id</StyledTableCell>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell>Publish date</StyledTableCell>
             <StyledTableCell>Page count</StyledTableCell>
@@ -26,16 +27,17 @@ export const Table = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookList.map((book) => {
+          {bookList.map((book, index) => {
             const date = moment(book.publishDate).format('MMM DD, YYYY');
             return (
-              <StyledTableRow key={book.id}>
+              <StyledTableRow key={book._id}>
                 <StyledTableCell component="th" scope="row">
-                  {book.id}
+                  {index + 1}
                 </StyledTableCell>
+                <StyledTableCell>{book._id}</StyledTableCell>
                 <StyledTableCell>{book.title}</StyledTableCell>
                 <StyledTableCell>{date}</StyledTableCell>
-                <StyledTableCell>{book.pageCount}</StyledTableCell>
+                <StyledTableCell>{book.pages}</StyledTableCell>
                 <StyledTableCell>{book.description}</StyledTableCell>
               </StyledTableRow>
             );

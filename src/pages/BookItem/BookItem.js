@@ -35,14 +35,14 @@ export const BookItem = () => {
             <span>Back</span>
           </StyledButton>
           <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-            <Typography mb={1} variant="h4" component="h1">
+            <Typography textAlign="center" mb={1} variant="h4" component="h1">
               {bookData.title}
             </Typography>
-            <Typography variant="subtitle1" component="p">
+            <Typography textAlign="center" variant="subtitle1" component="p">
               {moment(bookData.publishDate).format('MMM DD, YYYY')}
             </Typography>
-            <Typography>{bookData.pageCount} pages</Typography>
-            <Typography>{bookData.description}</Typography>
+            <Typography textAlign="center">{bookData.pages} pages</Typography>
+            <Typography textAlign="center">{bookData.description}</Typography>
             <Typography textAlign="center">{bookData.excerpt}</Typography>
           </Box>
         </>

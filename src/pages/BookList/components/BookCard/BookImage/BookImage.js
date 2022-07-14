@@ -4,12 +4,12 @@ import { loadImg } from '../../../../../utils';
 import { useAxios } from '../../../../../hooks';
 
 export const BookImage = (props) => {
-  const { bookId } = props;
+  const { index } = props;
   const {
     data: src,
     loading,
     error,
-  } = useAxios(() => loadImg(`https://picsum.photos/id/${bookId + 5}/500/500`));
+  } = useAxios(() => loadImg(`https://picsum.photos/id/${index + 5}/500/500`));
 
   return (
     <>
