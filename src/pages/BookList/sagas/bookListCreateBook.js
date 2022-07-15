@@ -1,17 +1,22 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { createBook } from '../../../api/books';
+import { modalToggleOpen } from '../../../components/Modal/reducers/modal';
+import { bookListFetchStart } from '../reducers/bookList';
 import {
   bookListCreateBookError,
   bookListCreateBookInProgress,
   bookListCreateBookStart,
-  bookListFetchStart,
-} from '../reducers/bookList';
+  bookListCreateBookSuccess,
+} from '../reducers/bookListCreateBook';
 
 function* bookListCreateBookSaga({ payload: { bookData } }) {
   try {
     yield put(bookListCreateBookInProgress());
+    yield new Promise((resolve) => setTimeout(resolve, 2000));
     yield call(createBook, bookData);
     yield put(bookListFetchStart());
+    yield put(bookListCreateBookSuccess({ data: bookData }));
+    yield put(modalToggleOpen());
   } catch (error) {
     yield put(bookListCreateBookError());
   }

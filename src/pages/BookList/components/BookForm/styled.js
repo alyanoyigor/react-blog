@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import styledEngine from '@mui/styled-engine';
 import styled from 'styled-components';
 
@@ -8,6 +9,6 @@ export const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-export const StyledButton = styledEngine(Button)`
+export const StyledButton = styledEngine(LoadingButton)`
   width: 100px;
 `;

@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import moment from 'moment';
+import { Skeleton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CardContent, Typography } from '@mui/material';
 import { CardMenu } from './CardMenu';
-import { BookImage } from './BookImage';
 import {
   StyledCardContainer,
   StyledBookCard,
   StyledIconButton,
   StyledShortText,
 } from './styled';
+
+const BookImage = React.lazy(() =>
+  import('./BookImage').then((module) => ({
+    default: module.BookImage,
+  }))
+);
 
 export const BookCard = (props) => {
   const { title, description, _id: bookId, date: publishDate, index } = props;
@@ -40,7 +46,18 @@ export const BookCard = (props) => {
           open={open}
           anchorEl={anchorEl}
         />
-        <BookImage index={index} />
+        <Suspense
+          fallback={
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height={200}
+              sx={{ bgcolor: 'grey.900' }}
+            />
+          }
+        >
+          <BookImage index={index} />
+        </Suspense>
         <CardContent>
           <Typography gutterBottom variant="h5">
             {title}

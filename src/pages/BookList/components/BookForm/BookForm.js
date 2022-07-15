@@ -2,25 +2,14 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Input } from '../../../../components/Input/Input';
-import { bookListCreateBookStart } from '../../reducers/bookList';
+
+import { Input } from '../../../../components/Input';
+import { bookListCreateBookStart } from '../../reducers/bookListCreateBook';
+
 import { StyledButton, StyledForm } from './styled';
 
 export const BookForm = (props) => {
-  const { onCloseModal } = props;
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-  const dispatch = useDispatch();
-
-  const onSubmit = (data) => {
-    dispatch(bookListCreateBookStart({ bookData: data }));
-    onCloseModal();
-  };
+  const { loading } = props;
 
   const inputs = [
     { label: 'Title', name: 'title', required: true },
@@ -29,21 +18,40 @@ export const BookForm = (props) => {
     { label: 'Excerpt', name: 'excerpt', required: false },
   ];
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (data) => {
+    dispatch(bookListCreateBookStart({ bookData: data }));
+  };
+
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} onReset={reset}>
       {inputs.map((input) => (
         <Input
           key={input.name}
+          disabled={loading}
           inputOptions={register(input.name, { required: input.required })}
           error={Boolean(errors[input.name])}
           label={input.label}
         />
       ))}
       <Box display="flex" gap="4px" justifyContent="flex-end">
-        <StyledButton color="error" type="reset">
+        <StyledButton disabled={loading} color="error" type="reset">
           Reset
         </StyledButton>
-        <StyledButton variant="contained" type="submit">
+        <StyledButton
+          disabled={loading}
+          loading={loading}
+          variant="contained"
+          type="submit"
+        >
           Submit
         </StyledButton>
       </Box>

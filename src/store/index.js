@@ -1,9 +1,11 @@
 import { applyMiddleware, compose, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
+import modalReducer from '../components/Modal/reducers/modal';
 import paginationReducer from '../components/Pagination/reducers/pagination';
 import bookItemReducer from '../pages/BookItem/reducers/bookItem';
 import bookListReducer from '../pages/BookList/reducers/bookList';
+import bookListCreateBookReducer from '../pages/BookList/reducers/bookListCreateBook';
 import statisticsReducer from '../pages/Statistics/reducers/statistics';
 
 import rootSaga from './sagas';
@@ -26,8 +28,10 @@ const store = configureStore({
   reducer: {
     bookItem: bookItemReducer,
     bookList: bookListReducer,
+    bookListCreateBook: bookListCreateBookReducer,
     statistics: statisticsReducer,
     pagination: paginationReducer,
+    modal: modalReducer,
   },
   middleware: [sagaMiddleware],
 });
