@@ -3,13 +3,16 @@ import { CardMedia, Skeleton } from '@mui/material';
 import { loadImg } from '../../../../../utils';
 import { useAxios } from '../../../../../hooks';
 
-export const BookImage = (props) => {
-  const { index } = props;
+export const BookImage = () => {
+  const randomNumber = Math.random() * 100;
+
   const {
     data: src,
     loading,
     error,
-  } = useAxios(() => loadImg(`https://picsum.photos/id/${index + 5}/500/500`));
+  } = useAxios(() =>
+    loadImg(`https://picsum.photos/id/${Math.floor(randomNumber)}/500/500`)
+  );
 
   return (
     <>

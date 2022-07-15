@@ -5,9 +5,8 @@ import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
-import * as paginationSelectors from '../../components/Pagination/selectors/pagination';
 import { Modal } from '../../components/Modal';
-import { CreateBookForm } from './components/CreateBookForm';
+import { BookForm } from './components/BookForm';
 import { BookCardList } from './components/BookCardList';
 import { bookListFetchStart } from './reducers/bookList';
 
@@ -21,18 +20,10 @@ export const BookList = () => {
   const loading = useSelector(selectors.bookListLoadingSelector);
   const error = useSelector(selectors.bookListErrorSelector);
 
-  const booksPerPage = useSelector(
-    paginationSelectors.paginationItemsPerPageSelector
+  const { booksPerPage, currentPage } = useSelector(
+    selectors.bookListPaginationSelector
   );
-  const currentPage = useSelector(
-    paginationSelectors.paginationCurrentPageSelector
-  );
-  const lastBookIndex = useSelector(paginationSelectors.lastItemIndexSelector);
-  const firstBookIndex = useSelector(
-    paginationSelectors.firstItemIndexSelector
-  );
-
-  const currentBooks = books.slice(firstBookIndex, lastBookIndex);
+  const currentBooks = useSelector(selectors.bookListCurrentBooksSelector);
 
   const handlePaginate = (pageNumber) => {
     dispatch(paginationChangePage({ page: pageNumber }));
@@ -65,7 +56,7 @@ export const BookList = () => {
             <Typography mb={1} textAlign="center" variant="h5" component="h1">
               Create book
             </Typography>
-            <CreateBookForm onCloseModal={handleCloseModal} />
+            <BookForm onCloseModal={handleCloseModal} />
           </Modal>
         </>
       )}
