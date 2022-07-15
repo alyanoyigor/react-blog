@@ -10,8 +10,8 @@ import {
 function* statisticsFetchSaga() {
   try {
     yield put(statisticsFetchInProgress());
-    const stats = yield call(getBookList);
-    yield put(statisticsFetchSuccess({ data: stats.data }));
+    const data = yield call(getBookList);
+    yield put(statisticsFetchSuccess({ data }));
   } catch (error) {
     yield put(statisticsFetchError());
   }

@@ -10,8 +10,8 @@ import {
 function* bookFetchSaga({ payload: { id } }) {
   try {
     yield put(bookItemFetchInProgress());
-    const bookItem = yield call(getBookItem, id);
-    yield put(bookItemFetchSuccess({ data: bookItem.data }));
+    const data = yield call(getBookItem, id);
+    yield put(bookItemFetchSuccess({ data }));
   } catch (error) {
     yield put(bookItemFetchError());
   }

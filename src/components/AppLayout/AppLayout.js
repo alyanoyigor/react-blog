@@ -10,7 +10,6 @@ export const AppLayout = () => (
     <GlobalStyle />
     <ToastContainer
       autoClose={3000}
-      theme="dark"
       position="top-right"
       hideProgressBar={true}
     />

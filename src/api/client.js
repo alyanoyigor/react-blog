@@ -7,9 +7,9 @@ const client = axios.create({
 });
 
 client.interceptors.response.use(
-  (response) => response.data,
+  (response) => response.data.data,
   (response) => {
-    const error = response.response.data || response.response.statusText;
+    const error = response.response.data.data || response.response.statusText;
     return Promise.reject(error);
   }
 );

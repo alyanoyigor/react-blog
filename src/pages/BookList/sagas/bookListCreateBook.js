@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { createBook } from '../../../api/books';
 import { modalToggleOpen } from '../../../components/Modal/reducers/modal';
@@ -16,9 +17,11 @@ function* bookListCreateBookSaga({ payload: { bookData } }) {
     yield call(createBook, bookData);
     yield put(bookListFetchStart());
     yield put(bookListCreateBookSuccess({ data: bookData }));
+    toast.success('Book has been created successfully!');
     yield put(modalToggleOpen());
   } catch (error) {
     yield put(bookListCreateBookError());
+    toast.error(error._message);
   }
 }
 

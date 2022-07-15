@@ -9,7 +9,7 @@ import { bookListCreateBookStart } from '../../reducers/bookListCreateBook';
 import { StyledButton, StyledForm } from './styled';
 
 export const BookForm = (props) => {
-  const { loading } = props;
+  const { loading, onCancel } = props;
 
   const inputs = [
     { label: 'Title', name: 'title', required: true },
@@ -21,7 +21,6 @@ export const BookForm = (props) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -32,7 +31,7 @@ export const BookForm = (props) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
       {inputs.map((input) => (
         <Input
           key={input.name}
@@ -43,8 +42,8 @@ export const BookForm = (props) => {
         />
       ))}
       <Box display="flex" gap="4px" justifyContent="flex-end">
-        <StyledButton disabled={loading} color="error" type="reset">
-          Reset
+        <StyledButton disabled={loading} color="error" onClick={onCancel}>
+          Cancel
         </StyledButton>
         <StyledButton
           disabled={loading}
