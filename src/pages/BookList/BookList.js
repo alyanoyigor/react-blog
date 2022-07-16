@@ -42,28 +42,29 @@ export const BookList = () => {
   return (
     <>
       {loading && !error && <Preloader />}
-      {currentBooks && !error && (
-        <>
-          <Box textAlign="right" mb={1}>
-            <Button
-              onClick={onClickCreateBook}
-              variant="contained"
-              color="secondary"
-            >
-              Create Book
-            </Button>
-          </Box>
-          <BookCardList bookList={currentBooks} />
-          <ModalCreateBook />
-        </>
+      <Box textAlign="right" mb={1}>
+        <Button
+          onClick={onClickCreateBook}
+          variant="contained"
+          color="secondary"
+        >
+          Create Book
+        </Button>
+      </Box>
+      {currentBooks.length > 0 && !error && (
+        <BookCardList bookList={currentBooks} />
       )}
-      {books.length > booksPerPage && !loading && !error && (
+      <ModalCreateBook />
+      {books.length > booksPerPage && !error && (
         <Pagination
           currentPage={currentPage}
           itemsPerPage={booksPerPage}
           itemsCount={books.length}
           onPaginate={handlePaginate}
         />
+      )}
+      {currentBooks.length === 0 && !loading && !error && (
+        <h1>Nothing was found</h1>
       )}
       {error && !loading && <Error>{error}</Error>}
     </>

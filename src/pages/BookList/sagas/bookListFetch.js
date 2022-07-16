@@ -7,9 +7,10 @@ import {
   bookListFetchSuccess,
 } from '../reducers/bookList';
 
-function* bookListFetchSaga() {
+export function* bookListFetchSaga() {
   try {
     yield put(bookListFetchInProgress());
+    yield new Promise((resolve) => setTimeout(resolve, 2000));
     const data = yield call(getBookList);
     yield put(bookListFetchSuccess({ data }));
   } catch (error) {
