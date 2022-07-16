@@ -1,5 +1,3 @@
-export const bookListFetchStartAction = () => {};
-
 export const bookListFetchInProgressAction = (state) => {
   state.loading = true;
   state.error = null;

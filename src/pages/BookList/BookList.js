@@ -11,7 +11,7 @@ import { modalToggleOpen } from '../../components/Modal/reducers/modal';
 
 import { ModalCreateBook } from './components/ModalCreateBook';
 import { BookCardList } from './components/BookCardList';
-import { bookListFetchStart } from './reducers/bookList';
+import { bookListFetchStart } from './thunks/bookList';
 
 import * as selectors from './selectors/bookList';
 

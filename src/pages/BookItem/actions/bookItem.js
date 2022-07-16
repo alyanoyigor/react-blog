@@ -1,7 +1,3 @@
-export const bookItemFetchStartAction = (_state, action) => ({
-  payload: { id: action.payload.id },
-});
-
 export const bookItemFetchInProgressAction = (state) => {
   state.loading = true;
   state.error = null;

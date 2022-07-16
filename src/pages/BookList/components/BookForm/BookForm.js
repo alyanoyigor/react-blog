@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { Input } from '../../../../components/Input';
-import { bookListCreateBookStart } from '../../reducers/bookListCreateBook';
+import { bookListCreateBookStart } from '../../thunks/bookListCreateBook';
 
 import { StyledButton, StyledForm } from './styled';
 

@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { bookListFetchStart } from '../thunks/bookList';
+
 import * as actions from '../actions/bookList';
 
 const initialState = {
@@ -12,19 +14,16 @@ const bookListSliceName = String(Symbol('BOOK_LIST_SLICE'));
 const bookListSlice = createSlice({
   name: bookListSliceName,
   initialState,
-  reducers: {
-    bookListFetchStart: actions.bookListFetchStartAction,
-    bookListFetchInProgress: actions.bookListFetchInProgressAction,
-    bookListFetchSuccess: actions.bookListFetchSuccessAction,
-    bookListFetchError: actions.bookListFetchErrorAction,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(
+        bookListFetchStart.pending,
+        actions.bookListFetchInProgressAction
+      )
+      .addCase(bookListFetchStart.fulfilled, actions.bookListFetchSuccessAction)
+      .addCase(bookListFetchStart.rejected, actions.bookListFetchErrorAction);
   },
 });
-
-export const {
-  bookListFetchStart,
-  bookListFetchInProgress,
-  bookListFetchSuccess,
-  bookListFetchError,
-} = bookListSlice.actions;
 
 export default bookListSlice.reducer;

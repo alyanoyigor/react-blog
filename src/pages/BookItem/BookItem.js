@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
-import { bookItemFetchStart } from './reducers/bookItem';
+import { bookItemFetchStart } from './thunks/bookItem';
 import { StyledBackIcon, StyledButton } from './styled';
 
 import * as selectors from './selectors/bookItem';

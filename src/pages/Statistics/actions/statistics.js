@@ -1,5 +1,3 @@
-export const statisticsFetchStartAction = () => {};
-
 export const statisticsFetchInProgressAction = (state) => {
   state.loading = true;
   state.error = null;
