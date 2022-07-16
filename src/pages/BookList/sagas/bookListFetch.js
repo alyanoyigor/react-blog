@@ -7,7 +7,7 @@ import {
   bookListFetchSuccess,
 } from '../reducers/bookList';
 
-export function* bookListFetchSaga() {
+function* bookListFetchSaga() {
   try {
     yield put(bookListFetchInProgress());
     yield new Promise((resolve) => setTimeout(resolve, 2000));
