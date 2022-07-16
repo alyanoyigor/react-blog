@@ -1,5 +1,3 @@
-export const bookListCreateBookStartAction = () => {};
-
 export const bookListCreateBookInProgressAction = (state) => {
   state.loading = true;
   state.error = null;
