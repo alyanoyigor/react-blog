@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-
 import { Input } from '../../../../components/Input';
-import { bookListCreateBookStart } from '../../thunks/bookListCreateBook';
-
 import { StyledButton, StyledForm } from './styled';
 
 export const BookForm = (props) => {
-  const { loading, onCancel } = props;
+  const { loading, onCancel, bookOptions, onSubmit } = props;
 
   const inputs = [
     { label: 'Title', name: 'title', required: true },
@@ -21,14 +17,12 @@ export const BookForm = (props) => {
   const {
     register,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: bookOptions });
 
-  const dispatch = useDispatch();
-
-  const onSubmit = (data) => {
-    dispatch(bookListCreateBookStart({ bookData: data }));
-  };
+  useEffect(() => reset(bookOptions), [bookOptions, reset]);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -36,6 +30,7 @@ export const BookForm = (props) => {
         <Input
           key={input.name}
           disabled={loading}
+          value={watch(input.name)}
           inputOptions={register(input.name, { required: input.required })}
           error={Boolean(errors[input.name])}
           label={input.label}
@@ -56,4 +51,8 @@ export const BookForm = (props) => {
       </Box>
     </StyledForm>
   );
+};
+
+BookForm.defaultProps = {
+  bookOptions: {},
 };

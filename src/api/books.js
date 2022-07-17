@@ -26,3 +26,13 @@ export const createBook = async (book) => {
     return Promise.reject(error);
   }
 };
+
+export const updateBook = async (payload) => {
+  try {
+    const { id, bookOptions } = payload;
+    const bookData = await client.patch(`/books/${id}`, bookOptions);
+    return bookData;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

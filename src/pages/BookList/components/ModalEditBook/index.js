@@ -1,0 +1,1 @@
+export { ModalEditBook } from './ModalEditBook';

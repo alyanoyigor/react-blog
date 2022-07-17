@@ -5,11 +5,11 @@ import { Box, Button } from '@mui/material';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
-
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
-import { modalToggleOpen } from '../../components/Modal/reducers/modal';
+import { modalCreateBookToggleOpen } from './components/ModalCreateBook/reducers/modalCreateBook';
 
 import { ModalCreateBook } from './components/ModalCreateBook';
+import { ModalEditBook } from './components/ModalEditBook';
 import { BookCardList } from './components/BookCardList';
 import { bookListFetchStart } from './thunks/bookList';
 
@@ -32,7 +32,7 @@ export const BookList = () => {
   };
 
   const onClickCreateBook = () => {
-    dispatch(modalToggleOpen());
+    dispatch(modalCreateBookToggleOpen());
   };
 
   useEffect(() => {
@@ -42,19 +42,24 @@ export const BookList = () => {
   return (
     <>
       {loading && !error && <Preloader />}
-      <Box textAlign="right" mb={1}>
-        <Button
-          onClick={onClickCreateBook}
-          variant="contained"
-          color="secondary"
-        >
-          Create Book
-        </Button>
-      </Box>
+      {!error && (
+        <>
+          <Box textAlign="right" mb={1}>
+            <Button
+              onClick={onClickCreateBook}
+              variant="contained"
+              color="secondary"
+            >
+              Create Book
+            </Button>
+          </Box>
+          <ModalCreateBook />
+          <ModalEditBook />
+        </>
+      )}
       {currentBooks.length > 0 && !error && (
         <BookCardList bookList={currentBooks} />
       )}
-      <ModalCreateBook />
       {books.length > booksPerPage && !error && (
         <Pagination
           currentPage={currentPage}

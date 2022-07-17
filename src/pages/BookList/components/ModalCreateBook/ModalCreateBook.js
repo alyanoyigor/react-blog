@@ -2,29 +2,40 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 
-import { modalToggleOpen } from '../../../../components/Modal/reducers/modal';
+import { bookListCreateBookStart } from '../../thunks/bookListCreateBook';
 import { Modal } from '../../../../components/Modal';
 import { BookForm } from '../../components/BookForm';
 
-import * as selectors from '../../selectors/bookListCreateBook';
+import { bookListCreateBookLoadingSelector } from '../../selectors/bookListCreateBook';
+import { modalCreateBookToggleOpen } from './reducers/modalCreateBook';
+import { modalCreateBookIsOpenSelector } from './selectors/modalCreateBook';
 
 export const ModalCreateBook = () => {
   const dispatch = useDispatch();
 
-  const loading = useSelector(selectors.bookListCreateBookLoadingSelector);
+  const isOpen = useSelector(modalCreateBookIsOpenSelector);
+  const loading = useSelector(bookListCreateBookLoadingSelector);
 
   const onClose = () => {
     if (!loading) {
-      dispatch(modalToggleOpen());
+      dispatch(modalCreateBookToggleOpen());
     }
   };
 
+  const handleEditBookSubmit = (data) => {
+    dispatch(bookListCreateBookStart({ bookData: data }));
+  };
+
   return (
-    <Modal onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <Typography mb={1} textAlign="center" variant="h5" component="h1">
         Create book
       </Typography>
-      <BookForm onCancel={onClose} loading={loading} />
+      <BookForm
+        onSubmit={handleEditBookSubmit}
+        onCancel={onClose}
+        loading={loading}
+      />
     </Modal>
   );
 };
