@@ -8,7 +8,7 @@ import { bookListEditBookResetData } from '../../reducers/bookListEditBook';
 import * as selectors from '../../selectors/bookListEditBook';
 
 import { BookForm } from '../BookForm';
-import { modalEditBookIsOpenSelector } from './selectors/modal';
+import { modalEditBookIsOpenSelector } from './selectors/modalEditBook';
 import { modalEditBookToggleOpen } from './reducers/modalEditBook';
 
 export const ModalEditBook = () => {

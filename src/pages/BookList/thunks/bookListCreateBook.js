@@ -5,12 +5,12 @@ import { createBook } from '../../../api/books';
 import { modalCreateBookToggleOpen } from '../components/ModalCreateBook/reducers/modalCreateBook';
 import { bookListFetchStart } from './bookList';
 
-const bookListCreateBookStartPrefix = String(
-  Symbol('bookListCreateBookStartPrefix')
+const bookListCreateBookStartType = String(
+  Symbol('BOOK_LIST_CREATE_BOOK_START_TYPE')
 );
 
 export const bookListCreateBookStart = createAsyncThunk(
-  bookListCreateBookStartPrefix,
+  bookListCreateBookStartType,
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const { bookData } = data;

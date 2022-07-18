@@ -1,8 +1,11 @@
 import React, { useState, Suspense } from 'react';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CardContent, Typography } from '@mui/material';
+
+import { bookListLoadingSelector } from '../../selectors/bookList';
 import { CardMenu } from './CardMenu';
 import {
   StyledCardContainer,
@@ -18,9 +21,11 @@ const BookImage = React.lazy(() =>
 );
 
 export const BookCard = (props) => {
-  const { title, description, _id: bookId, date: publishDate, index } = props;
+  const { data } = props;
   const [anchorEl, setAnchorEl] = useState();
-  const date = moment(publishDate).format('MMM DD, YYYY');
+  const date = moment(data.date).format('MMM DD, YYYY');
+
+  const bookListLoading = useSelector(bookListLoadingSelector);
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,13 +41,17 @@ export const BookCard = (props) => {
   return (
     <StyledCardContainer>
       <StyledBookCard>
-        <StyledIconButton aria-describedby={menuId} onClick={onClick}>
+        <StyledIconButton
+          disabled={bookListLoading}
+          aria-describedby={menuId}
+          onClick={onClick}
+        >
           <MoreVertIcon />
         </StyledIconButton>
         <CardMenu
           onClose={handleClose}
+          bookData={data}
           menuId={menuId}
-          bookId={bookId}
           open={open}
           anchorEl={anchorEl}
         />
@@ -56,17 +65,17 @@ export const BookCard = (props) => {
             />
           }
         >
-          <BookImage index={index} />
+          <BookImage />
         </Suspense>
         <CardContent>
           <Typography gutterBottom variant="h5">
-            {title}
+            {data.title}
           </Typography>
           <Typography variant="body1" color="text.main">
             {date}
           </Typography>
           <StyledShortText variant="body2" color="text.secondary">
-            {description}
+            {data.description}
           </StyledShortText>
         </CardContent>
       </StyledBookCard>

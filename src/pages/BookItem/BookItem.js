@@ -39,7 +39,7 @@ export const BookItem = () => {
               {bookData.title}
             </Typography>
             <Typography textAlign="center" variant="subtitle1" component="p">
-              {moment(bookData.publishDate).format('MMM DD, YYYY')}
+              {moment(bookData.date).format('MMM DD, YYYY')}
             </Typography>
             <Typography textAlign="center">{bookData.pages} pages</Typography>
             <Typography textAlign="center">{bookData.description}</Typography>

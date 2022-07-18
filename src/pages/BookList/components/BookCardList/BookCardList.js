@@ -7,8 +7,8 @@ export const BookCardList = (props) => {
 
   return (
     <StyledBookList>
-      {bookList.map((bookItem, index) => (
-        <BookCard key={bookItem._id} index={index} {...bookItem} />
+      {bookList.map((bookItem) => (
+        <BookCard key={bookItem._id} data={bookItem} />
       ))}
     </StyledBookList>
   );

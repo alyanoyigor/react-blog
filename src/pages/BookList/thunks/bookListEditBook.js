@@ -5,15 +5,12 @@ import { getBookItem, updateBook } from '../../../api/books';
 import { modalEditBookToggleOpen } from '../components/ModalEditBook/reducers/modalEditBook';
 import { bookListFetchStart } from './bookList';
 
-const bookListEditBookStartPrefix = String(
-  Symbol('bookListEditBookStartPrefix')
-);
-const bookListBeforeEditBookStartPrefix = String(
-  Symbol('bookListBeforeEditBookStartPrefix')
+const bookListEditBookStartType = String(
+  Symbol('BOOK_LIST_EDIT_BOOK_START_TYPE')
 );
 
 export const bookListEditBookStart = createAsyncThunk(
-  bookListEditBookStartPrefix,
+  bookListEditBookStartType,
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const { bookData } = data;
@@ -30,8 +27,12 @@ export const bookListEditBookStart = createAsyncThunk(
   }
 );
 
+const BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE = String(
+  Symbol('BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE')
+);
+
 export const bookListBeforeEditBookStart = createAsyncThunk(
-  bookListBeforeEditBookStartPrefix,
+  BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE,
   async (data, { rejectWithValue }) => {
     try {
       const { id } = data;

@@ -36,3 +36,12 @@ export const updateBook = async (payload) => {
     return Promise.reject(error);
   }
 };
+
+export const deleteBook = async (payload) => {
+  try {
+    const { id } = payload;
+    await client.delete(`/books/${id}`);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
