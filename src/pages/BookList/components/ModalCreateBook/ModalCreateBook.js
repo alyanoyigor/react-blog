@@ -6,6 +6,7 @@ import { bookListCreateBookStart } from '../../thunks/bookListCreateBook';
 import { Modal } from '../../../../components/Modal';
 import { BookForm } from '../../components/BookForm';
 
+import { createBookSchema } from '../../validation';
 import { bookListCreateBookLoadingSelector } from '../../selectors/bookListCreateBook';
 import { modalCreateBookToggleOpen } from './reducers/modalCreateBook';
 import { modalCreateBookIsOpenSelector } from './selectors/modalCreateBook';
@@ -32,6 +33,7 @@ export const ModalCreateBook = () => {
         Create book
       </Typography>
       <BookForm
+        schema={createBookSchema}
         onSubmit={handleEditBookSubmit}
         onCancel={onClose}
         loading={loading}

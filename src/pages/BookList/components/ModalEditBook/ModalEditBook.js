@@ -6,6 +6,7 @@ import { Modal } from '../../../../components/Modal';
 import { bookListEditBookStart } from '../../thunks/bookListEditBook';
 import { bookListEditBookResetData } from '../../reducers/bookListEditBook';
 import * as selectors from '../../selectors/bookListEditBook';
+import { editBookSchema } from '../../validation';
 
 import { BookForm } from '../BookForm';
 import { modalEditBookIsOpenSelector } from './selectors/modalEditBook';
@@ -37,6 +38,7 @@ export const ModalEditBook = () => {
         Edit book
       </Typography>
       <BookForm
+        schema={editBookSchema}
         onSubmit={handleEditBookSubmit}
         bookOptions={data}
         onCancel={onClose}

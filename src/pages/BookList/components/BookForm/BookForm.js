@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { Input } from '../../../../components/Input';
 import { StyledButton, StyledForm } from './styled';
 
 export const BookForm = (props) => {
-  const { loading, onCancel, bookOptions, onSubmit } = props;
+  const { loading, onCancel, bookOptions, onSubmit, schema } = props;
 
   const inputs = [
-    { label: 'Title', name: 'title', required: true },
-    { label: 'Description', name: 'description', required: true },
-    { label: 'Pages', name: 'pages', required: true },
-    { label: 'Excerpt', name: 'excerpt', required: false },
+    { label: 'Title', name: 'title' },
+    { label: 'Description', name: 'description' },
+    { label: 'Pages', name: 'pages' },
+    { label: 'Excerpt', name: 'excerpt' },
   ];
 
   const {
@@ -20,7 +22,10 @@ export const BookForm = (props) => {
     reset,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: bookOptions });
+  } = useForm({
+    defaultValues: bookOptions,
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => reset(bookOptions), [bookOptions, reset]);
 
@@ -30,9 +35,9 @@ export const BookForm = (props) => {
         <Input
           key={input.name}
           disabled={loading}
-          value={watch(input.name)}
-          inputOptions={register(input.name, { required: input.required })}
-          error={Boolean(errors[input.name])}
+          valueWatcher={watch(input.name)}
+          inputOptions={register(input.name)}
+          error={errors[input.name]}
           label={input.label}
         />
       ))}
