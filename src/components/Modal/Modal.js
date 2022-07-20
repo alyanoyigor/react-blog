@@ -4,10 +4,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { StyledCloseButton, modalStyles } from './styled';
 
 export const Modal = (props) => {
-  const { isOpen, onClose, children } = props;
+  const { open, onClose, children } = props;
 
   return (
-    <ModalMUI open={isOpen} onClose={onClose}>
+    <ModalMUI open={open} onClose={onClose}>
       <Box sx={modalStyles}>
         <StyledCloseButton size="small" onClick={onClose}>
           <CloseIcon />

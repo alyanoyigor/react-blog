@@ -1,30 +1,28 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Divider, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-import { bookListBeforeEditBookStart } from '../../../thunks/bookListEditBook';
-import { modalEditBookToggleOpen } from '../../ModalEditBook/reducers/modalEditBook';
-import { modalDeleteBookToggleOpen } from '../../ModalDeleteBook/reducers/modalDeleteBook';
-import { bookListGetDeletedBookData } from '../../../reducers/bookListDeleteBook';
 
 import { StyledMenu } from './styled';
 
 export const CardMenu = (props) => {
-  const { menuId, open, anchorEl, onClose, bookData } = props;
+  const {
+    menuId,
+    open,
+    anchorEl,
+    onClose,
+    bookData,
+    handleEdit,
+    handleDelete,
+  } = props;
 
-  const dispatch = useDispatch();
-
-  const onEditBook = () => {
+  const onEdit = () => {
     onClose();
-    dispatch(bookListBeforeEditBookStart({ id: bookData._id }));
-    dispatch(modalEditBookToggleOpen());
+    handleEdit(bookData);
   };
 
-  const onDeleteBook = () => {
+  const onDelete = () => {
     onClose();
-    dispatch(bookListGetDeletedBookData({ data: bookData }));
-    dispatch(modalDeleteBookToggleOpen());
+    handleDelete(bookData);
   };
 
   return (
@@ -38,8 +36,8 @@ export const CardMenu = (props) => {
         horizontal: 'right',
       }}
     >
-      <MenuItem onClick={onEditBook}>Edit</MenuItem>
-      <MenuItem onClick={onDeleteBook}>Delete</MenuItem>
+      <MenuItem onClick={onEdit}>Edit</MenuItem>
+      <MenuItem onClick={onDelete}>Delete</MenuItem>
       <Divider />
       <MenuItem
         component={Link}

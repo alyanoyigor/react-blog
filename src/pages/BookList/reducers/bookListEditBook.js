@@ -9,7 +9,8 @@ import * as actions from '../actions/bookListEditBook';
 const initialState = {
   data: {},
   error: null,
-  loading: false,
+  submitLoading: false,
+  fetchLoading: true
 };
 
 const bookListEditBookSliceName = String(Symbol('BOOK_LIST_EDIT_BOOK_SLICE'));
@@ -52,4 +53,4 @@ const bookListEditBookSlice = createSlice({
 
 export const { bookListEditBookResetData } = bookListEditBookSlice.actions;
 
-export default bookListEditBookSlice.reducer;
+export const bookListEditBookReducer = bookListEditBookSlice.reducer;

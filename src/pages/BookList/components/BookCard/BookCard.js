@@ -1,11 +1,9 @@
 import React, { useState, Suspense } from 'react';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CardContent, Typography } from '@mui/material';
 
-import { bookListLoadingSelector } from '../../selectors/bookList';
 import { CardMenu } from './CardMenu';
 import {
   StyledCardContainer,
@@ -21,11 +19,9 @@ const BookImage = React.lazy(() =>
 );
 
 export const BookCard = (props) => {
-  const { data } = props;
+  const { data, handleEditModalOpen, handleDeleteModalOpen } = props;
   const [anchorEl, setAnchorEl] = useState();
   const date = moment(data.date).format('MMM DD, YYYY');
-
-  const bookListLoading = useSelector(bookListLoadingSelector);
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,15 +37,13 @@ export const BookCard = (props) => {
   return (
     <StyledCardContainer>
       <StyledBookCard>
-        <StyledIconButton
-          disabled={bookListLoading}
-          aria-describedby={menuId}
-          onClick={onClick}
-        >
+        <StyledIconButton aria-describedby={menuId} onClick={onClick}>
           <MoreVertIcon />
         </StyledIconButton>
         <CardMenu
           onClose={handleClose}
+          handleEdit={handleEditModalOpen}
+          handleDelete={handleDeleteModalOpen}
           bookData={data}
           menuId={menuId}
           open={open}

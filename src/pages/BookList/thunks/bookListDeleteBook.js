@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { deleteBook } from '../../../api/books';
-import { modalDeleteBookToggleOpen } from '../components/ModalDeleteBook/reducers/modalDeleteBook';
+import { modalClose } from '../../../store/modal/reducer/modal';
 
-import { bookListFetchStart } from './bookList';
+import { bookListFetchStart } from './bookListFetch';
 
 const bookListDeleteBookStartType = String(
   Symbol('BOOK_LIST_DELETE_BOOK_START_TYPE')
@@ -18,7 +18,7 @@ export const bookListDeleteBookStart = createAsyncThunk(
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       dispatch(bookListFetchStart());
-      dispatch(modalDeleteBookToggleOpen());
+      dispatch(modalClose());
 
       toast.success('Book has been deleted successfully!');
     } catch (error) {

@@ -38,4 +38,4 @@ const bookListDeleteBookSlice = createSlice({
 
 export const { bookListGetDeletedBookData } = bookListDeleteBookSlice.actions;
 
-export default bookListDeleteBookSlice.reducer;
+export const bookListDeleteBookReducer = bookListDeleteBookSlice.reducer;

@@ -1,50 +1,34 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography } from '@mui/material';
 
 import { Modal } from '../../../../components/Modal';
+import { StyledButton, StyledBookTitle } from './styled';
 
-import { modalDeleteBookIsOpenSelector } from './selectors/modalDeleteBook';
-import { bookListDeleteBookStart } from '../../thunks/bookListDeleteBook';
-import * as selectors from '../../selectors/bookListDeleteBook';
-import { modalDeleteBookToggleOpen } from './reducers/modalDeleteBook';
-
-import { StyledButton } from './styled';
-
-export const ModalDeleteBook = () => {
-  const dispatch = useDispatch();
-
-  const isOpen = useSelector(modalDeleteBookIsOpenSelector);
-  const loading = useSelector(selectors.bookListDeleteBookLoadingSelector);
-  const bookData = useSelector(selectors.bookListDeleteBookDataSelector);
-
-  const onClose = () => {
-    if (!loading) {
-      dispatch(modalDeleteBookToggleOpen());
-    }
-  };
-
-  const onDeleteBook = () => {
-    dispatch(bookListDeleteBookStart({ id: bookData._id }));
-  };
+export const ModalDeleteBook = (props) => {
+  const { open, handleClose, bookData, loading, onDelete } = props;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Typography mb={1} textAlign="center" variant="h5" component="h1">
         Delete book
       </Typography>
       <Typography mb={3} textAlign="center" variant="body1" component="p">
-        {`Do you really want to delete ${bookData.title} book?`}
+        Do you really want to delete{' '}
+        <StyledBookTitle>{bookData.title}</StyledBookTitle> book?
       </Typography>
       <Box display="flex" gap="4px" justifyContent="flex-end">
-        <StyledButton disabled={loading} color="error" onClick={onClose}>
+        <StyledButton
+          disabled={loading}
+          variant="contained"
+          onClick={handleClose}
+        >
           Cancel
         </StyledButton>
         <StyledButton
-          variant="contained"
+          color="error"
           disabled={loading}
           loading={loading}
-          onClick={onDeleteBook}
+          onClick={() => onDelete(bookData._id)}
         >
           Delete
         </StyledButton>

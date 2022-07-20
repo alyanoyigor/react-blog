@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { bookListCreateBookStart } from '../thunks/bookListCreateBook';
 
 import * as actions from '../actions/bookListCreateBook';
 
@@ -16,22 +15,13 @@ const bookListCreateBookSliceName = String(
 const bookListCreateBookSlice = createSlice({
   name: bookListCreateBookSliceName,
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(
-        bookListCreateBookStart.pending,
-        actions.bookListCreateBookInProgressAction
-      )
-      .addCase(
-        bookListCreateBookStart.fulfilled,
-        actions.bookListCreateBookSuccessAction
-      )
-      .addCase(
-        bookListCreateBookStart.rejected,
-        actions.bookListCreateBookErrorAction
-      );
+  reducers: {
+    bookCreateInProgress: actions.bookCreateInProgressAction,
+    bookCreateSuccess: actions.bookCreateSuccessAction,
+    bookCreateError: actions.bookCreateErrorAction,
   },
 });
 
-export default bookListCreateBookSlice.reducer;
+export const createActions = bookListCreateBookSlice.actions;
+
+export const bookListCreateBookReducer = bookListCreateBookSlice.reducer;

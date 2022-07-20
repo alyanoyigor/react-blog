@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { getBookItem, updateBook } from '../../../api/books';
-import { modalEditBookToggleOpen } from '../components/ModalEditBook/reducers/modalEditBook';
-import { bookListFetchStart } from './bookList';
+import { modalClose } from '../../../store/modal/reducer/modal';
+import { bookListFetchStart } from './bookListFetch';
 
 const bookListEditBookStartType = String(
   Symbol('BOOK_LIST_EDIT_BOOK_START_TYPE')
@@ -18,7 +18,7 @@ export const bookListEditBookStart = createAsyncThunk(
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       dispatch(bookListFetchStart());
-      dispatch(modalEditBookToggleOpen());
+      dispatch(modalClose());
       toast.success('Book has been updated successfully!');
     } catch (error) {
       toast.error(error.message);
@@ -27,12 +27,12 @@ export const bookListEditBookStart = createAsyncThunk(
   }
 );
 
-const BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE = String(
-  Symbol('BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE')
+const bookListBeforeEditBookStartType = String(
+  Symbol('BOOK_LIST_BEFORE_EDIT_BOOK_START_TYPE')
 );
 
 export const bookListBeforeEditBookStart = createAsyncThunk(
-  BOOKLIST_BEFORE_EDIT_BOOK_START_TYPE,
+  bookListBeforeEditBookStartType,
   async (data, { rejectWithValue }) => {
     try {
       const { id } = data;

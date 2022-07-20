@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 
@@ -6,76 +6,181 @@ import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
-import { modalCreateBookToggleOpen } from './components/ModalCreateBook/reducers/modalCreateBook';
 
 import { ModalDeleteBook } from './components/ModalDeleteBook';
 import { ModalCreateBook } from './components/ModalCreateBook';
 import { ModalEditBook } from './components/ModalEditBook';
 import { BookCardList } from './components/BookCardList';
-import { bookListFetchStart } from './thunks/bookList';
+import { bookListFetchStart } from './thunks/bookListFetch';
 
 import * as selectors from './selectors/bookList';
+import { modalOpen, modalClose } from '../../store/modal/reducer/modal';
+import { modalStateSelector } from '../../store/modal/selectors/modal';
+import { MODAL_NAME } from '../../store/modal/constants/modal';
+
+import {
+  bookListBeforeEditBookStart,
+  bookListEditBookStart,
+} from './thunks/bookListEditBook';
+import { bookListGetDeletedBookData } from './reducers/bookListDeleteBook';
+import { bookListDeleteBookStart } from './thunks/bookListDeleteBook';
+import { bookListCreateBookStart } from './thunks/bookListCreateBook';
+import { bookListEditBookResetData } from './reducers/bookListEditBook';
+
 import { StyledCreateButton } from './styled';
 
 export const BookList = () => {
   const dispatch = useDispatch();
 
-  const books = useSelector(selectors.bookListDataSelector);
-  const loading = useSelector(selectors.bookListLoadingSelector);
-  const error = useSelector(selectors.bookListErrorSelector);
+  const {
+    data: books,
+    loading,
+    error,
+  } = useSelector(selectors.bookListFetchSelector);
+
+  const { loading: createLoading } = useSelector(
+    selectors.bookListCreateSelector
+  );
+  const {
+    data: editData,
+    submitLoading: submitEditLoading,
+    fetchLoading: fetchEditLoading,
+  } = useSelector(selectors.bookListEditSelector);
+  const { data: deleteData, loading: deleteLoading } = useSelector(
+    selectors.bookListDeleteSelector
+  );
+
+  const { open, name } = useSelector(modalStateSelector);
 
   const { booksPerPage, currentPage } = useSelector(
     selectors.bookListPaginationSelector
   );
   const currentBooks = useSelector(selectors.bookListCurrentBooksSelector);
 
-  const handlePaginate = (pageNumber) => {
-    dispatch(paginationChangePage({ page: pageNumber }));
-  };
+  const handlePaginate = useCallback(
+    (pageNumber) => {
+      dispatch(paginationChangePage({ page: pageNumber }));
+    },
+    [dispatch]
+  );
 
-  const onClickCreateBook = () => {
-    dispatch(modalCreateBookToggleOpen());
-  };
+  const onClickCreateBook = useCallback(() => {
+    dispatch(modalOpen({ name: MODAL_NAME.CREATE_BOOK }));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(bookListFetchStart());
+    return () => {
+      // dispatch(bookListResetData());
+    };
   }, [dispatch]);
+
+  const handleEditModalOpen = useCallback(
+    (bookData) => {
+      dispatch(bookListBeforeEditBookStart({ id: bookData._id }));
+      dispatch(modalOpen({ name: MODAL_NAME.EDIT_BOOK }));
+    },
+    [dispatch]
+  );
+
+  const handleDeleteModalOpen = useCallback(
+    (deletedBookData) => {
+      dispatch(bookListGetDeletedBookData({ data: deletedBookData }));
+      dispatch(modalOpen({ name: MODAL_NAME.DELETE_BOOK }));
+    },
+    [dispatch]
+  );
+
+  const handleModalClose = useCallback(() => {
+    dispatch(modalClose());
+  }, [dispatch]);
+
+  const handleEditModalClose = useCallback(() => {
+    if (!submitEditLoading) {
+      dispatch(modalClose());
+      dispatch(bookListEditBookResetData());
+    }
+  }, [dispatch, submitEditLoading]);
+
+  const handleDeleteBookSubmit = useCallback(
+    (id) => {
+      dispatch(bookListDeleteBookStart({ id }));
+    },
+    [dispatch]
+  );
+
+  const handleEditBookSubmit = useCallback(
+    (data) => {
+      dispatch(
+        bookListEditBookStart({ bookData: { bookOptions: data, id: data._id } })
+      );
+    },
+    [dispatch]
+  );
+
+  const handleCreateBookSubmit = useCallback(
+    (data) => {
+      dispatch(bookListCreateBookStart({ bookData: data }));
+    },
+    [dispatch]
+  );
 
   return (
     <>
       {loading && !error && <Preloader />}
       {!error && (
-        <>
-          <Box textAlign="right" mb={1}>
-            <StyledCreateButton
-              disabled={loading}
-              onClick={onClickCreateBook}
-              variant="contained"
-              color="secondary"
-            >
-              Create Book
-            </StyledCreateButton>
-          </Box>
-          <ModalCreateBook />
-          <ModalEditBook />
-          <ModalDeleteBook />
-        </>
+        <Box textAlign="right" mb={1}>
+          <StyledCreateButton
+            onClick={onClickCreateBook}
+            variant="contained"
+            color="secondary"
+          >
+            Create Book
+          </StyledCreateButton>
+        </Box>
       )}
       {currentBooks.length > 0 && !error && (
-        <BookCardList bookList={currentBooks} />
-      )}
-      {books.length > booksPerPage && !error && (
-        <Pagination
-          currentPage={currentPage}
-          itemsPerPage={booksPerPage}
-          itemsCount={books.length}
-          onPaginate={handlePaginate}
-        />
+        <>
+          <BookCardList
+            handleEditModalOpen={handleEditModalOpen}
+            handleDeleteModalOpen={handleDeleteModalOpen}
+            bookList={currentBooks}
+          />
+          {books.length > booksPerPage && (
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={booksPerPage}
+              itemsCount={books.length}
+              onPaginate={handlePaginate}
+            />
+          )}
+        </>
       )}
       {currentBooks.length === 0 && !loading && !error && (
         <h1>Nothing was found</h1>
       )}
       {error && !loading && <Error>{error}</Error>}
+      <ModalCreateBook
+        handleClose={handleModalClose}
+        loading={createLoading}
+        handleCreateBook={handleCreateBookSubmit}
+        open={open && name === MODAL_NAME.CREATE_BOOK}
+      />
+      <ModalEditBook
+        fetchLoading={fetchEditLoading}
+        bookOptions={editData}
+        handleClose={handleEditModalClose}
+        loading={submitEditLoading}
+        handleEditBook={handleEditBookSubmit}
+        open={open && name === MODAL_NAME.EDIT_BOOK}
+      />
+      <ModalDeleteBook
+        bookData={deleteData}
+        handleClose={handleModalClose}
+        loading={deleteLoading}
+        onDelete={handleDeleteBookSubmit}
+        open={open && name === MODAL_NAME.DELETE_BOOK}
+      />
     </>
   );
 };
