@@ -12,7 +12,7 @@ const bookListCreateBookStartType = String(
 
 export const bookListCreateBookStart = createAsyncThunk(
   bookListCreateBookStartType,
-  async (data, { rejectWithValue, dispatch }) => {
+  async (data, { dispatch }) => {
     try {
       const { bookData } = data;
       dispatch(createActions.bookCreateInProgress());
@@ -27,7 +27,6 @@ export const bookListCreateBookStart = createAsyncThunk(
     } catch (error) {
       toast.error(error.message);
       dispatch(createActions.bookCreateError());
-      return rejectWithValue(error.message);
     }
   }
 );

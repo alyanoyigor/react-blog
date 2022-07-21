@@ -8,9 +8,10 @@ import * as actions from '../actions/bookListEditBook';
 
 const initialState = {
   data: {},
+  fetchData: {},
   error: null,
   submitLoading: false,
-  fetchLoading: true
+  fetchLoading: true,
 };
 
 const bookListEditBookSliceName = String(Symbol('BOOK_LIST_EDIT_BOOK_SLICE'));
@@ -19,7 +20,8 @@ const bookListEditBookSlice = createSlice({
   name: bookListEditBookSliceName,
   initialState,
   reducers: {
-    bookListEditBookResetData: actions.bookListEditBookResetDataAction,
+    bookListEditBookResetData: () => initialState,
+    bookListGetEditBookFetchData: actions.bookListGetEditBookFetchDataAction,
   },
   extraReducers: (builder) => {
     builder
@@ -51,6 +53,7 @@ const bookListEditBookSlice = createSlice({
   },
 });
 
-export const { bookListEditBookResetData } = bookListEditBookSlice.actions;
+export const { bookListEditBookResetData, bookListGetEditBookFetchData } =
+  bookListEditBookSlice.actions;
 
 export const bookListEditBookReducer = bookListEditBookSlice.reducer;

@@ -1,15 +1,15 @@
-export const bookListDeleteBookInProgressAction = (state) => {
+export const bookDeleteInProgressAction = (state) => {
   state.loading = true;
   state.error = null;
 };
 
-export const bookListDeleteBookErrorAction = (state) => {
+export const bookDeleteSuccessAction = (state) => {
   state.loading = false;
-  state.error = true;
 };
 
-export const bookListDeleteBookSuccessAction = (state) => {
+export const bookDeleteErrorAction = (state) => {
   state.loading = false;
+  state.error = true;
 };
 
 export const bookListGetDeletedBookDataAction = (state, action) => {

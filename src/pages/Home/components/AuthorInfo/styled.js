@@ -20,11 +20,16 @@ export const StyledTitle = styled.h1`
     background-clip: text;
     color: transparent;
   }
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const StyledImageContainer = styled.div`
   display: flex;
   position: relative;
+  flex-shrink: 0;
   width: 300px;
   height: 300px;
 
@@ -53,4 +58,10 @@ export const StyledAuthorInfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    gap: 24px;
+  }
 `;

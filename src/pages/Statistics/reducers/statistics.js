@@ -14,7 +14,9 @@ const statisticsSliceName = String(Symbol('STATISTICS_SLICE'));
 const statisticsSlice = createSlice({
   name: statisticsSliceName,
   initialState,
-  reducers: {},
+  reducers: {
+    statisticsResetData: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -31,5 +33,7 @@ const statisticsSlice = createSlice({
       );
   },
 });
+
+export const { statisticsResetData } = statisticsSlice.actions;
 
 export default statisticsSlice.reducer;

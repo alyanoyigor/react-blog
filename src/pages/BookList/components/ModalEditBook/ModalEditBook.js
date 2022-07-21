@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 
 import { Modal } from '../../../../components/Modal';
 import { editBookSchema } from '../../validation';
+import { bookListBeforeEditBookStart } from '../../thunks/bookListEditBook';
 import { BookForm } from '../BookForm';
 
 export const ModalEditBook = (props) => {
@@ -10,10 +12,23 @@ export const ModalEditBook = (props) => {
     open,
     handleClose,
     handleEditBook,
+    fetchData,
     bookOptions,
     loading,
     fetchLoading,
   } = props;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const promise = dispatch(
+      bookListBeforeEditBookStart({ id: fetchData._id })
+    );
+    return () => {
+      promise.abort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Modal open={open} onClose={handleClose}>

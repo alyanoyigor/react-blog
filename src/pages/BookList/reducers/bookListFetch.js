@@ -14,7 +14,9 @@ const bookListFetchSliceName = String(Symbol('BOOK_LIST_FETCH_SLICE'));
 const bookListFetchSlice = createSlice({
   name: bookListFetchSliceName,
   initialState,
-  reducers: {},
+  reducers: {
+    bookListResetData: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -25,5 +27,7 @@ const bookListFetchSlice = createSlice({
       .addCase(bookListFetchStart.rejected, actions.bookListFetchErrorAction);
   },
 });
+
+export const { bookListResetData } = bookListFetchSlice.actions;
 
 export const bookListFetch = bookListFetchSlice.reducer;

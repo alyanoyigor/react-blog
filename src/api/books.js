@@ -9,9 +9,9 @@ export const getBookList = async () => {
   }
 };
 
-export const getBookItem = async (bookId) => {
+export const getBookItem = async (bookId, config) => {
   try {
-    const bookData = await client.get(`/books/${bookId}`);
+    const bookData = await client.get(`/books/${bookId}`, config);
     return bookData;
   } catch (error) {
     return Promise.reject(error);

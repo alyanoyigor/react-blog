@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 
 import { Error } from '../../components/Error';
-import { Preloader } from '../../components/Preloader';
 import { Pagination } from '../../components/Pagination';
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
 
@@ -18,14 +17,16 @@ import { modalOpen, modalClose } from '../../store/modal/reducer/modal';
 import { modalStateSelector } from '../../store/modal/selectors/modal';
 import { MODAL_NAME } from '../../store/modal/constants/modal';
 
-import {
-  bookListBeforeEditBookStart,
-  bookListEditBookStart,
-} from './thunks/bookListEditBook';
-import { bookListGetDeletedBookData } from './reducers/bookListDeleteBook';
+import { bookListEditBookStart } from './thunks/bookListEditBook';
+import { deleteActions } from './reducers/bookListDeleteBook';
 import { bookListDeleteBookStart } from './thunks/bookListDeleteBook';
 import { bookListCreateBookStart } from './thunks/bookListCreateBook';
-import { bookListEditBookResetData } from './reducers/bookListEditBook';
+import {
+  bookListEditBookResetData,
+  bookListGetEditBookFetchData,
+} from './reducers/bookListEditBook';
+import { bookListResetData } from './reducers/bookListFetch';
+import { BookCardListSkeleton } from './components/BookCardListSkeleton';
 
 import { StyledCreateButton } from './styled';
 
@@ -43,6 +44,7 @@ export const BookList = () => {
   );
   const {
     data: editData,
+    fetchData: editFetchData,
     submitLoading: submitEditLoading,
     fetchLoading: fetchEditLoading,
   } = useSelector(selectors.bookListEditSelector);
@@ -68,16 +70,9 @@ export const BookList = () => {
     dispatch(modalOpen({ name: MODAL_NAME.CREATE_BOOK }));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(bookListFetchStart());
-    return () => {
-      // dispatch(bookListResetData());
-    };
-  }, [dispatch]);
-
   const handleEditModalOpen = useCallback(
     (bookData) => {
-      dispatch(bookListBeforeEditBookStart({ id: bookData._id }));
+      dispatch(bookListGetEditBookFetchData({ data: bookData }));
       dispatch(modalOpen({ name: MODAL_NAME.EDIT_BOOK }));
     },
     [dispatch]
@@ -85,7 +80,9 @@ export const BookList = () => {
 
   const handleDeleteModalOpen = useCallback(
     (deletedBookData) => {
-      dispatch(bookListGetDeletedBookData({ data: deletedBookData }));
+      dispatch(
+        deleteActions.bookListGetDeletedBookData({ data: deletedBookData })
+      );
       dispatch(modalOpen({ name: MODAL_NAME.DELETE_BOOK }));
     },
     [dispatch]
@@ -96,11 +93,14 @@ export const BookList = () => {
   }, [dispatch]);
 
   const handleEditModalClose = useCallback(() => {
-    if (!submitEditLoading) {
-      dispatch(modalClose());
-      dispatch(bookListEditBookResetData());
-    }
-  }, [dispatch, submitEditLoading]);
+    dispatch(modalClose());
+    dispatch(bookListEditBookResetData());
+  }, [dispatch]);
+
+  const handleDeleteModalClose = useCallback(() => {
+    dispatch(modalClose());
+    dispatch(deleteActions.bookListResetDeleteBookData());
+  }, [dispatch]);
 
   const handleDeleteBookSubmit = useCallback(
     (id) => {
@@ -125,9 +125,15 @@ export const BookList = () => {
     [dispatch]
   );
 
+  useEffect(() => {
+    dispatch(bookListFetchStart());
+    return () => {
+      dispatch(bookListResetData());
+    };
+  }, [dispatch]);
+
   return (
     <>
-      {loading && !error && <Preloader />}
       {!error && (
         <Box textAlign="right" mb={1}>
           <StyledCreateButton
@@ -139,6 +145,7 @@ export const BookList = () => {
           </StyledCreateButton>
         </Box>
       )}
+      {loading && !error && <BookCardListSkeleton booksCount={booksPerPage} />}
       {currentBooks.length > 0 && !error && (
         <>
           <BookCardList
@@ -166,17 +173,20 @@ export const BookList = () => {
         handleCreateBook={handleCreateBookSubmit}
         open={open && name === MODAL_NAME.CREATE_BOOK}
       />
-      <ModalEditBook
-        fetchLoading={fetchEditLoading}
-        bookOptions={editData}
-        handleClose={handleEditModalClose}
-        loading={submitEditLoading}
-        handleEditBook={handleEditBookSubmit}
-        open={open && name === MODAL_NAME.EDIT_BOOK}
-      />
+      {open && name === MODAL_NAME.EDIT_BOOK && (
+        <ModalEditBook
+          fetchLoading={fetchEditLoading}
+          bookOptions={editData}
+          fetchData={editFetchData}
+          handleClose={handleEditModalClose}
+          loading={submitEditLoading}
+          handleEditBook={handleEditBookSubmit}
+          open={open && name === MODAL_NAME.EDIT_BOOK}
+        />
+      )}
       <ModalDeleteBook
         bookData={deleteData}
-        handleClose={handleModalClose}
+        handleClose={handleDeleteModalClose}
         loading={deleteLoading}
         onDelete={handleDeleteBookSubmit}
         open={open && name === MODAL_NAME.DELETE_BOOK}

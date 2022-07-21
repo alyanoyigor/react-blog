@@ -26,6 +26,7 @@ export const bookListEditSelector = createSelector(
   bookListEditBookStateSelector,
   (state) => ({
     data: state.data,
+    fetchData: state.fetchData,
     submitLoading: state.submitLoading,
     fetchLoading: state.fetchLoading,
     error: state.error,

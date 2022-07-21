@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
@@ -11,7 +12,7 @@ const bookListEditBookStartType = String(
 
 export const bookListEditBookStart = createAsyncThunk(
   bookListEditBookStartType,
-  async (data, { rejectWithValue, dispatch }) => {
+  async (data, { dispatch }) => {
     try {
       const { bookData } = data;
       await updateBook(bookData);
@@ -22,7 +23,6 @@ export const bookListEditBookStart = createAsyncThunk(
       toast.success('Book has been updated successfully!');
     } catch (error) {
       toast.error(error.message);
-      return rejectWithValue(error.message);
     }
   }
 );
@@ -33,16 +33,22 @@ const bookListBeforeEditBookStartType = String(
 
 export const bookListBeforeEditBookStart = createAsyncThunk(
   bookListBeforeEditBookStartType,
-  async (data, { rejectWithValue }) => {
+  async (data, { signal }) => {
     try {
+      const source = axios.CancelToken.source();
+      signal.addEventListener('abort', () => {
+        source.cancel();
+      });
+
       const { id } = data;
-      const bookData = await getBookItem(id);
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      const bookData = await getBookItem(id, { cancelToken: source.token });
 
       return { data: bookData };
     } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
+      if (error?.code !== 'ERR_CANCELED') {
+        toast.error(error.message);
+      }
     }
   }
 );

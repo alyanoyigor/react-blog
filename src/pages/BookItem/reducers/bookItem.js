@@ -14,7 +14,9 @@ const bookItemSliceName = String(Symbol('BOOK_ITEM_SLICE'));
 const bookItemSlice = createSlice({
   name: bookItemSliceName,
   initialState,
-  reducers: {},
+  reducers: {
+    bookItemResetData: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -25,5 +27,7 @@ const bookItemSlice = createSlice({
       .addCase(bookItemFetchStart.rejected, actions.bookItemFetchErrorAction);
   },
 });
+
+export const { bookItemResetData } = bookItemSlice.actions;
 
 export default bookItemSlice.reducer;

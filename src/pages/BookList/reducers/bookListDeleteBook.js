@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { bookListDeleteBookStart } from '../thunks/bookListDeleteBook';
 
 import * as actions from '../actions/bookListDeleteBook';
 
@@ -17,25 +16,14 @@ const bookListDeleteBookSlice = createSlice({
   name: bookListDeleteBookSliceName,
   initialState,
   reducers: {
+    bookDeleteInProgress: actions.bookDeleteInProgressAction,
+    bookDeleteSuccess: actions.bookDeleteSuccessAction,
+    bookDeleteError: actions.bookDeleteErrorAction,
     bookListGetDeletedBookData: actions.bookListGetDeletedBookDataAction,
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(
-        bookListDeleteBookStart.pending,
-        actions.bookListDeleteBookInProgressAction
-      )
-      .addCase(
-        bookListDeleteBookStart.fulfilled,
-        actions.bookListDeleteBookSuccessAction
-      )
-      .addCase(
-        bookListDeleteBookStart.rejected,
-        actions.bookListDeleteBookErrorAction
-      );
+    bookListResetDeleteBookData: () => initialState,
   },
 });
 
-export const { bookListGetDeletedBookData } = bookListDeleteBookSlice.actions;
+export const deleteActions = bookListDeleteBookSlice.actions;
 
 export const bookListDeleteBookReducer = bookListDeleteBookSlice.reducer;

@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
 import { bookItemFetchStart } from './thunks/bookItem';
+import { bookItemResetData } from './reducers/bookItem';
 import { StyledBackIcon, StyledButton } from './styled';
 
 import * as selectors from './selectors/bookItem';
@@ -23,6 +24,9 @@ export const BookItem = () => {
 
   useEffect(() => {
     dispatch(bookItemFetchStart({ id: bookId }));
+    return () => {
+      dispatch(bookItemResetData());
+    };
   }, [dispatch, bookId]);
 
   return (

@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { deleteBook } from '../../../api/books';
 import { modalClose } from '../../../store/modal/reducer/modal';
+import { deleteActions } from '../reducers/bookListDeleteBook';
 
 import { bookListFetchStart } from './bookListFetch';
 
@@ -11,19 +12,22 @@ const bookListDeleteBookStartType = String(
 
 export const bookListDeleteBookStart = createAsyncThunk(
   bookListDeleteBookStartType,
-  async (data, { rejectWithValue, dispatch }) => {
+  async (data, { dispatch }) => {
     try {
       const { id } = data;
+      dispatch(deleteActions.bookDeleteInProgress());
       await deleteBook({ id });
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      dispatch(deleteActions.bookDeleteSuccess());
 
       dispatch(bookListFetchStart());
       dispatch(modalClose());
 
+      dispatch(deleteActions.bookListResetDeleteBookData());
       toast.success('Book has been deleted successfully!');
     } catch (error) {
+      dispatch(deleteActions.bookDeleteError());
       toast.error(error.message);
-      return rejectWithValue(error.message);
     }
   }
 );

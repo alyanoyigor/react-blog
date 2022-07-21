@@ -29,6 +29,7 @@ export const bookListBeforeEditBookSuccessAction = (state, action) => {
   state.fetchLoading = false;
 };
 
-export const bookListEditBookResetDataAction = (state) => {
-  state.data = {};
+export const bookListGetEditBookFetchDataAction = (state, action) => {
+  const { data } = action.payload;
+  state.fetchData = data;
 };

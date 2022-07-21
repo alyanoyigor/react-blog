@@ -1,5 +1,6 @@
 export const bookCreateInProgressAction = (state) => {
   state.loading = true;
+  state.error = null;
 };
 
 export const bookCreateSuccessAction = (state) => {
@@ -7,5 +8,6 @@ export const bookCreateSuccessAction = (state) => {
 };
 
 export const bookCreateErrorAction = (state) => {
-  state.loading = true;
+  state.loading = false;
+  state.error = true;
 };
