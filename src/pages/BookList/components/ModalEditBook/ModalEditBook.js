@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 
@@ -45,4 +46,14 @@ export const ModalEditBook = (props) => {
       />
     </Modal>
   );
+};
+
+ModalEditBook.propTypes = {
+  open: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  fetchLoading: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleEditBook: PropTypes.func.isRequired,
+  bookOptions: PropTypes.object.isRequired,
+  fetchData: PropTypes.object.isRequired,
 };

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -71,4 +72,13 @@ export const BookForm = (props) => {
 BookForm.defaultProps = {
   bookOptions: {},
   fetchLoading: false,
+};
+
+BookForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  fetchLoading: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  bookOptions: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  schema: PropTypes.object.isRequired,
 };

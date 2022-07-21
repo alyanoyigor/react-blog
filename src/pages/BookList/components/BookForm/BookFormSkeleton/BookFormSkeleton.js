@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { StyledSkeleton, StyledButtonsContainer } from '../styled';
 
@@ -20,4 +21,10 @@ export const BookFormSkeleton = (props) => {
       </StyledButtonsContainer>
     </Box>
   );
+};
+
+BookFormSkeleton.propTypes = {
+  inputs: PropTypes.arrayOf(
+    PropTypes.shape({ label: PropTypes.string, name: PropTypes.string })
+  ).isRequired,
 };

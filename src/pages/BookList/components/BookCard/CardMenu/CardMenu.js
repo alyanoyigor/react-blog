@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Divider, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -48,4 +49,17 @@ export const CardMenu = (props) => {
       </MenuItem>
     </StyledMenu>
   );
+};
+
+CardMenu.propTypes = {
+  menuId: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  anchorEl: PropTypes.oneOfType([
+    PropTypes.oneOf([null]),
+    PropTypes.instanceOf(Element),
+  ]),
+  onClose: PropTypes.func.isRequired,
+  bookData: PropTypes.object.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };

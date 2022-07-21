@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Paper,
   Table as MUITable,
@@ -46,4 +47,8 @@ export const Table = (props) => {
       </MUITable>
     </TableContainer>
   );
+};
+
+Table.propTypes = {
+  bookList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

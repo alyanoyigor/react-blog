@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 
 export const Input = (props) => {
@@ -22,4 +23,19 @@ export const Input = (props) => {
 
 Input.defaultProps = {
   type: 'text',
+  disabled: false,
+};
+
+Input.propTypes = {
+  error: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  valueWatcher: PropTypes.any,
+  inputOptions: PropTypes.shape({
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    ref: PropTypes.func,
+  }).isRequired,
 };

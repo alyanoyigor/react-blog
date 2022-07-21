@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
 import { Modal } from '../../../../components/Modal';
@@ -21,4 +22,11 @@ export const ModalCreateBook = (props) => {
       />
     </Modal>
   );
+};
+
+ModalCreateBook.propTypes = {
+  open: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleCreateBook: PropTypes.func.isRequired,
 };

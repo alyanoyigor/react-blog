@@ -146,7 +146,7 @@ export const BookList = () => {
         </Box>
       )}
       {loading && !error && <BookCardListSkeleton booksCount={booksPerPage} />}
-      {currentBooks.length > 0 && !error && (
+      {currentBooks.length > 0 && !loading && !error && (
         <>
           <BookCardList
             handleEditModalOpen={handleEditModalOpen}

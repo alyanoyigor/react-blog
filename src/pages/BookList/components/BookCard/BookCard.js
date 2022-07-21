@@ -1,4 +1,5 @@
 import React, { useState, Suspense } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Skeleton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -75,4 +76,10 @@ export const BookCard = (props) => {
       </StyledBookCard>
     </StyledCardContainer>
   );
+};
+
+BookCard.propTypes = {
+  data: PropTypes.object.isRequired,
+  handleEditModalOpen: PropTypes.func.isRequired,
+  handleDeleteModalOpen: PropTypes.func.isRequired,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
 import { Modal } from '../../../../components/Modal';
@@ -35,4 +36,12 @@ export const ModalDeleteBook = (props) => {
       </Box>
     </Modal>
   );
+};
+
+ModalDeleteBook.propTypes = {
+  open: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  bookData: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

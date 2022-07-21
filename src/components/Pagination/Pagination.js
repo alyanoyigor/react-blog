@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import {
   StyledIcon,
@@ -51,4 +52,11 @@ export const Pagination = (props) => {
       </StyledList>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  itemsPerPage: PropTypes.number.isRequired,
+  itemsCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPaginate: PropTypes.func.isRequired,
 };

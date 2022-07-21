@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyledCardContainer } from '../BookCard/styled';
 import { StyledBookList } from '../BookCardList/styled';
 import { StyledSkeleton } from './styled';
@@ -20,4 +21,8 @@ export const BookCardListSkeleton = (props) => {
       ))}
     </StyledBookList>
   );
+};
+
+BookCardListSkeleton.propTypes = {
+  booksCount: PropTypes.number.isRequired,
 };

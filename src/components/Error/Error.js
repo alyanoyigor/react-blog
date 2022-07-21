@@ -1,5 +1,6 @@
-import { Alert } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Alert } from '@mui/material';
 
 export const Error = (props) => {
   const { children } = props;
@@ -9,4 +10,8 @@ export const Error = (props) => {
       {children}
     </Alert>
   );
+};
+
+Error.propTypes = {
+  children: PropTypes.element.isRequired,
 };
