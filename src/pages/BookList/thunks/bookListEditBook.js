@@ -4,6 +4,12 @@ import { toast } from 'react-toastify';
 
 import { getBookItem, updateBook } from '../../../api/books';
 import { modalClose } from '../../../store/modal/reducer/modal';
+import {
+  bookEditError,
+  bookEditInProgress,
+  bookEditSuccess,
+  bookListEditBookResetData,
+} from '../reducers/bookListEditBook';
 import { bookListFetchStart } from './bookListFetch';
 
 const bookListEditBookStartType = String(
@@ -14,14 +20,19 @@ export const bookListEditBookStart = createAsyncThunk(
   bookListEditBookStartType,
   async (data, { dispatch }) => {
     try {
+      dispatch(bookEditInProgress());
       const { bookData } = data;
+
       await updateBook(bookData);
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      dispatch(bookListFetchStart());
       dispatch(modalClose());
+
+      dispatch(bookEditSuccess());
+      dispatch(bookListEditBookResetData());
+      await dispatch(bookListFetchStart());
       toast.success('Book has been updated successfully!');
     } catch (error) {
+      dispatch(bookEditError());
       toast.error(error.message);
     }
   }

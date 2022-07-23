@@ -5,23 +5,68 @@ import IconButton from '@mui/material/IconButton';
 
 export const StyledCardContainer = styled.div`
   width: 100%;
+  margin: 0;
+  margin-bottom: 8px;
 
   @media (min-width: 425px) {
     width: 50%;
+
+    & > div {
+      margin-right: 4px;
+    }
+
+    &:nth-of-type(even) > div {
+      margin-right: 0;
+      margin-left: 4px;
+    }
   }
 
   @media (min-width: 768px) {
     width: 33.3%;
+
+    & > div {
+      margin: 0 4px;
+    }
+
+    &:nth-of-type(even) > div {
+      margin-right: 4px;
+    }
+
+    &:nth-of-type(3n + 1) > div {
+      margin: 0;
+      margin-right: 4px;
+    }
+
+    &:nth-of-type(3n) > div {
+      margin: 0;
+      margin-left: 4px;
+    }
   }
 
   @media (min-width: 1440px) {
     width: 25%;
+
+    & > div,
+    &:nth-of-type(even) > div,
+    &:nth-of-type(3n) > div,
+    &:nth-of-type(3n + 1) > div {
+      margin: 0 4px;
+    }
+
+    &:nth-of-type(4n + 1) > div {
+      margin: 0;
+      margin-right: 4px;
+    }
+
+    &:nth-of-type(4n) > div {
+      margin: 0;
+      margin-left: 4px;
+    }
   }
 `;
 
 export const StyledBookCard = styledEngine(Card)`
   position: relative;
-  margin: 8px;
   background-color: #fafafa;
 `;
 

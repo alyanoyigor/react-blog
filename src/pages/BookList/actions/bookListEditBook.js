@@ -9,7 +9,6 @@ export const bookListEditBookErrorAction = (state) => {
 };
 
 export const bookListEditBookSuccessAction = (state) => {
-  state.data = {};
   state.submitLoading = false;
 };
 

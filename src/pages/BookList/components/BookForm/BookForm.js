@@ -51,7 +51,7 @@ export const BookForm = (props) => {
             gap="4px"
             justifyContent="flex-end"
           >
-            <StyledButton disabled={loading} color="error" onClick={onCancel}>
+            <StyledButton disabled={loading} onClick={onCancel}>
               Cancel
             </StyledButton>
             <StyledButton

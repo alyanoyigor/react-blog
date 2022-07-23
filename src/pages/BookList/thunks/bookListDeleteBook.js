@@ -20,10 +20,10 @@ export const bookListDeleteBookStart = createAsyncThunk(
       await new Promise((resolve) => setTimeout(resolve, 2000));
       dispatch(deleteActions.bookDeleteSuccess());
 
-      dispatch(bookListFetchStart());
       dispatch(modalClose());
-
       dispatch(deleteActions.bookListResetDeleteBookData());
+
+      await dispatch(bookListFetchStart());
       toast.success('Book has been deleted successfully!');
     } catch (error) {
       dispatch(deleteActions.bookDeleteError());

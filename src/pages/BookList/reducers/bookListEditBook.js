@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  bookListEditBookStart,
-  bookListBeforeEditBookStart,
-} from '../thunks/bookListEditBook';
+import { bookListBeforeEditBookStart } from '../thunks/bookListEditBook';
 
 import * as actions from '../actions/bookListEditBook';
 
@@ -20,6 +17,9 @@ const bookListEditBookSlice = createSlice({
   name: bookListEditBookSliceName,
   initialState,
   reducers: {
+    bookEditInProgress: actions.bookListEditBookInProgressAction,
+    bookEditSuccess: actions.bookListEditBookSuccessAction,
+    bookEditError: actions.bookListEditBookErrorAction,
     bookListEditBookResetData: () => initialState,
     bookListGetEditBookFetchData: actions.bookListGetEditBookFetchDataAction,
   },
@@ -37,23 +37,15 @@ const bookListEditBookSlice = createSlice({
         bookListBeforeEditBookStart.rejected,
         actions.bookListBeforeEditBookErrorAction
       );
-    builder
-      .addCase(
-        bookListEditBookStart.pending,
-        actions.bookListEditBookInProgressAction
-      )
-      .addCase(
-        bookListEditBookStart.fulfilled,
-        actions.bookListEditBookSuccessAction
-      )
-      .addCase(
-        bookListEditBookStart.rejected,
-        actions.bookListEditBookErrorAction
-      );
   },
 });
 
-export const { bookListEditBookResetData, bookListGetEditBookFetchData } =
-  bookListEditBookSlice.actions;
+export const {
+  bookListEditBookResetData,
+  bookListGetEditBookFetchData,
+  bookEditInProgress,
+  bookEditSuccess,
+  bookEditError,
+} = bookListEditBookSlice.actions;
 
 export const bookListEditBookReducer = bookListEditBookSlice.reducer;

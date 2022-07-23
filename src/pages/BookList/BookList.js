@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 
 import { Error } from '../../components/Error';
 import { Pagination } from '../../components/Pagination';
+import { Preloader } from '../../components/Preloader';
 import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
 
 import { ModalDeleteBook } from './components/ModalDeleteBook';
@@ -67,13 +68,13 @@ export const BookList = () => {
   );
 
   const onClickCreateBook = useCallback(() => {
-    dispatch(modalOpen({ name: MODAL_NAME.CREATE_BOOK }));
+    dispatch(modalOpen({ name: MODAL_NAME.BOOK_CREATE }));
   }, [dispatch]);
 
   const handleEditModalOpen = useCallback(
     (bookData) => {
       dispatch(bookListGetEditBookFetchData({ data: bookData }));
-      dispatch(modalOpen({ name: MODAL_NAME.EDIT_BOOK }));
+      dispatch(modalOpen({ name: MODAL_NAME.BOOK_EDIT }));
     },
     [dispatch]
   );
@@ -83,7 +84,7 @@ export const BookList = () => {
       dispatch(
         deleteActions.bookListGetDeletedBookData({ data: deletedBookData })
       );
-      dispatch(modalOpen({ name: MODAL_NAME.DELETE_BOOK }));
+      dispatch(modalOpen({ name: MODAL_NAME.BOOK_DELETE }));
     },
     [dispatch]
   );
@@ -145,8 +146,11 @@ export const BookList = () => {
           </StyledCreateButton>
         </Box>
       )}
-      {loading && !error && <BookCardListSkeleton booksCount={booksPerPage} />}
-      {currentBooks.length > 0 && !loading && !error && (
+      {loading && !error && books.length > 0 && <Preloader />}
+      {loading && !error && books.length === 0 && (
+        <BookCardListSkeleton booksCount={booksPerPage} />
+      )}
+      {books.length > 0 && !error && (
         <>
           <BookCardList
             handleEditModalOpen={handleEditModalOpen}
@@ -171,9 +175,9 @@ export const BookList = () => {
         handleClose={handleModalClose}
         loading={createLoading}
         handleCreateBook={handleCreateBookSubmit}
-        open={open && name === MODAL_NAME.CREATE_BOOK}
+        open={open && name === MODAL_NAME.BOOK_CREATE}
       />
-      {open && name === MODAL_NAME.EDIT_BOOK && (
+      {open && name === MODAL_NAME.BOOK_EDIT && (
         <ModalEditBook
           fetchLoading={fetchEditLoading}
           bookOptions={editData}
@@ -181,7 +185,7 @@ export const BookList = () => {
           handleClose={handleEditModalClose}
           loading={submitEditLoading}
           handleEditBook={handleEditBookSubmit}
-          open={open && name === MODAL_NAME.EDIT_BOOK}
+          open={open && name === MODAL_NAME.BOOK_EDIT}
         />
       )}
       <ModalDeleteBook
@@ -189,7 +193,7 @@ export const BookList = () => {
         handleClose={handleDeleteModalClose}
         loading={deleteLoading}
         onDelete={handleDeleteBookSubmit}
-        open={open && name === MODAL_NAME.DELETE_BOOK}
+        open={open && name === MODAL_NAME.BOOK_DELETE}
       />
     </>
   );

@@ -16,7 +16,9 @@ export const BookCardListSkeleton = (props) => {
     <StyledBookList>
       {bookIndexesArray.map((number) => (
         <StyledCardContainer key={number}>
-          <StyledSkeleton sx={{ bgcolor: 'grey.900' }} />
+          <div>
+            <StyledSkeleton sx={{ bgcolor: 'grey.900' }} />
+          </div>
         </StyledCardContainer>
       ))}
     </StyledBookList>
