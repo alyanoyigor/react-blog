@@ -127,8 +127,9 @@ export const BookList = () => {
   );
 
   useEffect(() => {
-    dispatch(bookListFetchStart());
+    const promise = dispatch(bookListFetchStart());
     return () => {
+      promise.abort();
       dispatch(bookListResetData());
     };
   }, [dispatch]);

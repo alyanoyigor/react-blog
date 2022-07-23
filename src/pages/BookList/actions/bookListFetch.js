@@ -11,5 +11,5 @@ export const bookListFetchSuccessAction = (state, action) => {
 
 export const bookListFetchErrorAction = (state, action) => {
   state.loading = false;
-  state.error = action.payload;
+  state.error = action.error.message;
 };

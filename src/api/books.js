@@ -1,8 +1,8 @@
 import client from './client';
 
-export const getBookList = async () => {
+export const getBookList = async (config) => {
   try {
-    const booksData = await client.get('/books');
+    const booksData = await client.get('/books', config);
     return booksData;
   } catch (error) {
     return Promise.reject(error);
