@@ -3,5 +3,4 @@ import styledEngine from "@mui/styled-engine";
 
 export const StyledSkeleton = styledEngine(Skeleton)`
   transform: none;
-  height: 325px;
 `;

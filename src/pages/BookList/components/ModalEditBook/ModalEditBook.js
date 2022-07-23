@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 
+import { bookType } from '../../../../propTypes/bookType';
 import { Modal } from '../../../../components/Modal';
 import { editBookSchema } from '../../validation';
 import { bookListBeforeEditBookStart } from '../../thunks/bookListEditBook';
@@ -54,6 +55,6 @@ ModalEditBook.propTypes = {
   fetchLoading: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleEditBook: PropTypes.func.isRequired,
-  bookOptions: PropTypes.object.isRequired,
-  fetchData: PropTypes.object.isRequired,
+  bookOptions: PropTypes.shape(bookType).isRequired,
+  fetchData: PropTypes.shape(bookType).isRequired,
 };

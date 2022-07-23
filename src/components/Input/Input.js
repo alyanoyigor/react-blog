@@ -13,7 +13,7 @@ export const Input = (props) => {
       disabled={disabled}
       size="small"
       error={Boolean(error)}
-      helperText={(error && error.message) || ''}
+      helperText={error}
       variant="outlined"
       InputLabelProps={{ shrink: Boolean(valueWatcher) }}
       {...inputOptions}
@@ -22,16 +22,17 @@ export const Input = (props) => {
 };
 
 Input.defaultProps = {
+  error: '',
   type: 'text',
   disabled: false,
 };
 
 Input.propTypes = {
   error: PropTypes.string,
+  valueWatcher: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  valueWatcher: PropTypes.any,
   inputOptions: PropTypes.shape({
     name: PropTypes.string,
     onChange: PropTypes.func,

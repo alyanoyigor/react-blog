@@ -135,23 +135,21 @@ export const BookList = () => {
 
   return (
     <>
-      {!error && (
-        <Box textAlign="right" mb={1}>
-          <StyledCreateButton
-            onClick={onClickCreateBook}
-            variant="contained"
-            color="secondary"
-          >
-            Create Book
-          </StyledCreateButton>
-        </Box>
-      )}
       {loading && !error && books.length > 0 && <Preloader />}
       {loading && !error && books.length === 0 && (
         <BookCardListSkeleton booksCount={booksPerPage} />
       )}
       {books.length > 0 && !error && (
         <>
+          <Box textAlign="right" mb={1}>
+            <StyledCreateButton
+              onClick={onClickCreateBook}
+              variant="contained"
+              color="secondary"
+            >
+              Create Book
+            </StyledCreateButton>
+          </Box>
           <BookCardList
             handleEditModalOpen={handleEditModalOpen}
             handleDeleteModalOpen={handleDeleteModalOpen}

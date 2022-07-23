@@ -2,7 +2,7 @@ import { Menu, styled } from '@mui/material';
 
 export const StyledMenu = styled(Menu)(() => ({
   '& .MuiMenu-paper': {
-    marginLeft: 5,
+    marginLeft: 4,
     maxWidth: 100,
     width: '100%',
     overflow: 'visible',
@@ -18,6 +18,6 @@ export const StyledMenu = styled(Menu)(() => ({
     height: 10,
     backgroundColor: 'white',
     transform: 'translateY(-50%) rotate(45deg)',
-    zIndex: 1,
+    zIndex: 0,
   },
 }));

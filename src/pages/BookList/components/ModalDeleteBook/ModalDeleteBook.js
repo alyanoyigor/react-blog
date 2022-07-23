@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
+import { bookType } from '../../../../propTypes/bookType';
 import { Modal } from '../../../../components/Modal';
 import { StyledButton, StyledBookTitle } from './styled';
 
@@ -42,6 +43,6 @@ ModalDeleteBook.propTypes = {
   open: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  bookData: PropTypes.object.isRequired,
+  bookData: PropTypes.shape(bookType).isRequired,
   onDelete: PropTypes.func.isRequired,
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Divider, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+import { bookType } from '../../../../../propTypes/bookType';
 import { StyledMenu } from './styled';
 
 export const CardMenu = (props) => {
@@ -51,15 +52,17 @@ export const CardMenu = (props) => {
   );
 };
 
+CardMenu.defaultProps = {
+  menuId: null,
+  anchorEl: null,
+};
+
 CardMenu.propTypes = {
   menuId: PropTypes.string,
+  anchorEl: PropTypes.instanceOf(Element),
   open: PropTypes.bool.isRequired,
-  anchorEl: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.instanceOf(Element),
-  ]),
   onClose: PropTypes.func.isRequired,
-  bookData: PropTypes.object.isRequired,
+  bookData: PropTypes.shape(bookType).isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

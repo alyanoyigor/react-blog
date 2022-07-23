@@ -9,6 +9,8 @@ import {
   TableRow,
 } from '@mui/material';
 import moment from 'moment';
+
+import { bookType } from '../../../../propTypes/bookType';
 import { StyledTableCell, StyledTableRow } from './styled';
 
 export const Table = (props) => {
@@ -50,5 +52,5 @@ export const Table = (props) => {
 };
 
 Table.propTypes = {
-  bookList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  bookList: PropTypes.arrayOf(PropTypes.shape(bookType)).isRequired,
 };

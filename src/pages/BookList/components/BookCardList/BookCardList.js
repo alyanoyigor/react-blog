@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { BookCard } from '../../components/BookCard';
+import { bookType } from '../../../../propTypes/bookType';
 import { StyledBookList } from './styled';
 
 export const BookCardList = (props) => {
@@ -21,7 +23,7 @@ export const BookCardList = (props) => {
 };
 
 BookCardList.propTypes = {
-  bookList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  bookList: PropTypes.arrayOf(PropTypes.shape(bookType)).isRequired,
   handleEditModalOpen: PropTypes.func.isRequired,
   handleDeleteModalOpen: PropTypes.func.isRequired,
 };

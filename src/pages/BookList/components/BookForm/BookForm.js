@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { bookType } from '../../../../propTypes/bookType';
 import { Input } from '../../../../components/Input';
 import { BookFormSkeleton } from './BookFormSkeleton';
 import { StyledButton, StyledForm, StyledButtonsContainer } from './styled';
@@ -42,7 +43,7 @@ export const BookForm = (props) => {
               disabled={loading}
               valueWatcher={watch(input.name)}
               inputOptions={register(input.name)}
-              error={errors[input.name]}
+              error={errors[input.name]?.message}
               label={input.label}
             />
           ))}
@@ -78,7 +79,7 @@ BookForm.propTypes = {
   loading: PropTypes.bool.isRequired,
   fetchLoading: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
-  bookOptions: PropTypes.object.isRequired,
+  bookOptions: PropTypes.shape(bookType).isRequired,
   onSubmit: PropTypes.func.isRequired,
   schema: PropTypes.object.isRequired,
 };

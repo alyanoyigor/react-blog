@@ -5,6 +5,7 @@ import { Skeleton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CardContent, Typography } from '@mui/material';
 
+import { bookType } from '../../../../propTypes/bookType';
 import { CardMenu } from './CardMenu';
 import {
   StyledCardContainer,
@@ -21,7 +22,7 @@ const BookImage = React.lazy(() =>
 
 export const BookCard = (props) => {
   const { data, handleEditModalOpen, handleDeleteModalOpen } = props;
-  const [anchorEl, setAnchorEl] = useState();
+  const [anchorEl, setAnchorEl] = useState(null);
   const date = moment(data.date).format('MMM DD, YYYY');
 
   const onClick = (event) => {
@@ -33,7 +34,7 @@ export const BookCard = (props) => {
   };
 
   const open = Boolean(anchorEl);
-  const menuId = open ? 'simple-popover' : undefined;
+  const menuId = open ? 'simple-popover' : null;
 
   return (
     <StyledCardContainer>
@@ -79,7 +80,7 @@ export const BookCard = (props) => {
 };
 
 BookCard.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape(bookType).isRequired,
   handleEditModalOpen: PropTypes.func.isRequired,
   handleDeleteModalOpen: PropTypes.func.isRequired,
 };
