@@ -1,0 +1,12 @@
+{
+  "source": {
+    "include": ["src"],
+    "exclude": ["node_modules", "docs", "build", ".storybook"],
+    "includePattern": ".+\\.js(doc|x)?$"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/"
+  }
+}

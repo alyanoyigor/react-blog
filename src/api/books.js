@@ -1,16 +1,16 @@
 import client from './client';
 
 /**
- * @typedef {object} BookData
- * @property {string}  _id
- * @property {string}  title
- * @property {string}  description
- * @property {string}  date
- * @property {number}  pages
- * @property {string}  excerpt
- * @property {string}  createdAt
- * @property {string}  updatedAt   - Last updated date of object
- * @property {number}  __v         - Version of object
+ * @typedef {Object} BookData
+ * @property {string}  _id         - Book id
+ * @property {string}  title       - Book title
+ * @property {string}  description - Book description
+ * @property {string}  date        - Book publish date
+ * @property {number}  pages       - Amount pages of book
+ * @property {string}  excerpt     - Book excerpt
+ * @property {string}  createdAt   - Object creation date
+ * @property {string}  updatedAt   - Object Last updated date
+ * @property {number}  __v         - Version of the object
  */
 
 /**
@@ -41,7 +41,7 @@ export const getBookItem = async (bookId, config) => {
 };
 
 /**
- * @typedef {object} BookCreateData
+ * @typedef {Object} BookCreateData
  * @property {string}  title
  * @property {string}  description
  * @property {number}  pages
@@ -60,7 +60,7 @@ export const createBook = async (book) => {
 };
 
 /**
- * @typedef {object} BookUpdateData
+ * @typedef {Object} BookUpdateData
  * @property {string}  [title]
  * @property {string}  [description]
  * @property {number}  [pages]

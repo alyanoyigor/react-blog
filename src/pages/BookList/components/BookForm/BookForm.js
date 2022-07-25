@@ -76,10 +76,10 @@ BookForm.defaultProps = {
 };
 
 BookForm.propTypes = {
+  fetchLoading: PropTypes.bool,
+  bookOptions: PropTypes.shape(bookType),
   loading: PropTypes.bool.isRequired,
-  fetchLoading: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
-  bookOptions: PropTypes.shape(bookType).isRequired,
   onSubmit: PropTypes.func.isRequired,
   schema: PropTypes.object.isRequired,
 };
