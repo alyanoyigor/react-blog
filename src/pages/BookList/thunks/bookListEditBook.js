@@ -13,7 +13,7 @@ import {
 import { bookListFetchStart } from './bookListFetch';
 
 const bookListEditBookStartType = String(
-  Symbol('BOOK_LIST_EDIT_BOOK_START_TYPE')
+  Symbol('BOOK_LIST_EDIT_BOOK_START')
 );
 
 export const bookListEditBookStart = createAsyncThunk(
@@ -39,7 +39,7 @@ export const bookListEditBookStart = createAsyncThunk(
 );
 
 const bookListBeforeEditBookStartType = String(
-  Symbol('BOOK_LIST_BEFORE_EDIT_BOOK_START_TYPE')
+  Symbol('BOOK_LIST_BEFORE_EDIT_BOOK_START')
 );
 
 export const bookListBeforeEditBookStart = createAsyncThunk(

@@ -137,25 +137,30 @@ export const BookList = () => {
   return (
     <>
       {loading && !error && books.length > 0 && <Preloader />}
+      {!error && (
+        <Box textAlign="right" mb={1}>
+          <StyledCreateButton
+            onClick={onClickCreateBook}
+            variant="contained"
+            color="secondary"
+          >
+            Create Book
+          </StyledCreateButton>
+        </Box>
+      )}
       {loading && !error && books.length === 0 && (
         <BookCardListSkeleton booksCount={booksPerPage} />
       )}
-      {books.length > 0 && !error && (
+      {!error && (
         <>
-          <Box textAlign="right" mb={1}>
-            <StyledCreateButton
-              onClick={onClickCreateBook}
-              variant="contained"
-              color="secondary"
-            >
-              Create Book
-            </StyledCreateButton>
-          </Box>
-          <BookCardList
-            handleEditModalOpen={handleEditModalOpen}
-            handleDeleteModalOpen={handleDeleteModalOpen}
-            bookList={currentBooks}
-          />
+          {books.length > 0 && (
+            <BookCardList
+              handleEditModalOpen={handleEditModalOpen}
+              handleDeleteModalOpen={handleDeleteModalOpen}
+              bookList={currentBooks}
+            />
+          )}
+          {books.length === 0 && !loading && <h1>Nothing was found</h1>}
           {books.length > booksPerPage && (
             <Pagination
               currentPage={currentPage}
@@ -165,9 +170,6 @@ export const BookList = () => {
             />
           )}
         </>
-      )}
-      {currentBooks.length === 0 && !loading && !error && (
-        <h1>Nothing was found</h1>
       )}
       {error && !loading && <Error>{error}</Error>}
       <ModalCreateBook

@@ -1,5 +1,22 @@
 import client from './client';
 
+/**
+ * @typedef {object} BookData
+ * @property {string}  _id
+ * @property {string}  title
+ * @property {string}  description
+ * @property {string}  date
+ * @property {number}  pages
+ * @property {string}  excerpt
+ * @property {string}  createdAt
+ * @property {string}  updatedAt   - Last updated date of object
+ * @property {number}  __v         - Version of object
+ */
+
+/**
+ * @param {AxiosRequestConfig<any>} config
+ * @returns {Array<BookData> | Promise<never, string>}
+ */
 export const getBookList = async (config) => {
   try {
     const booksData = await client.get('/books', config);
@@ -9,6 +26,11 @@ export const getBookList = async (config) => {
   }
 };
 
+/**
+ * @param {number} bookId
+ * @param {AxiosRequestConfig<any>} config
+ * @returns {BookData | Promise<never, string>}
+ */
 export const getBookItem = async (bookId, config) => {
   try {
     const bookData = await client.get(`/books/${bookId}`, config);
@@ -18,6 +40,16 @@ export const getBookItem = async (bookId, config) => {
   }
 };
 
+/**
+ * @typedef {object} BookCreateData
+ * @property {string}  title
+ * @property {string}  description
+ * @property {number}  pages
+ * @property {number}  excerpt
+ *
+ * @param {BookCreateData} book
+ * @returns {BookData | Promise<never, string>}
+ */
 export const createBook = async (book) => {
   try {
     const bookData = await client.post('/books', book);
@@ -27,9 +59,19 @@ export const createBook = async (book) => {
   }
 };
 
-export const updateBook = async (payload) => {
+/**
+ * @typedef {object} BookUpdateData
+ * @property {string}  [title]
+ * @property {string}  [description]
+ * @property {number}  [pages]
+ * @property {number}  [excerpt]
+ *
+ * @param {{id: number, bookOptions: BookUpdateData}} data
+ * @returns {BookData | Promise<never, string>}
+ */
+export const updateBook = async (data) => {
   try {
-    const { id, bookOptions } = payload;
+    const { id, bookOptions } = data;
     const bookData = await client.patch(`/books/${id}`, bookOptions);
     return bookData;
   } catch (error) {
@@ -37,10 +79,13 @@ export const updateBook = async (payload) => {
   }
 };
 
-export const deleteBook = async (payload) => {
+/**
+ * @param {number} bookId
+ * @returns {undefined | Promise<never, string>}
+ */
+export const deleteBook = async (bookId) => {
   try {
-    const { id } = payload;
-    await client.delete(`/books/${id}`);
+    await client.delete(`/books/${bookId}`);
   } catch (error) {
     return Promise.reject(error);
   }

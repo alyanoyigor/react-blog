@@ -32,7 +32,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "jsdoc": "^3.6.11"
   },
   "scripts": {
     "predeploy": "npm run build",

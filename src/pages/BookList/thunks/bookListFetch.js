@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getBookList } from '../../../api/books';
 
-const bookListFetchStartType = String(Symbol('BOOK_LIST_FETCH_START_TYPE'));
+const bookListFetchStartType = String(Symbol('BOOK_LIST_FETCH_START'));
 
 export const bookListFetchStart = createAsyncThunk(
   bookListFetchStartType,

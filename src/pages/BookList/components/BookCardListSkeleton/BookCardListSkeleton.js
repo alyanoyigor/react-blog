@@ -8,20 +8,12 @@ import { StyledSkeleton } from './styled';
 export const BookCardListSkeleton = (props) => {
   const { booksCount } = props;
 
-  const bookIndexes = Array.from(
-    Array(booksCount),
-    (_book, index) => index
-  );
+  const bookIndexes = Array.from(Array(booksCount), (_book, index) => index);
 
   const paginationIndexes = Array.from(Array(5), (_book, index) => index);
 
   return (
     <>
-      <StyledSkeleton
-        height="37px"
-        width="137px"
-        sx={{ margin: '0 0 8px auto', bgcolor: 'grey.900' }}
-      />
       <StyledBookList>
         {bookIndexes.map((number) => (
           <StyledCardContainer key={number}>

@@ -7,7 +7,7 @@ import { createActions } from '../reducers/bookListCreateBook';
 import { bookListFetchStart } from './bookListFetch';
 
 const bookListCreateBookStartType = String(
-  Symbol('BOOK_LIST_CREATE_BOOK_START_TYPE')
+  Symbol('BOOK_LIST_CREATE_BOOK_START')
 );
 
 export const bookListCreateBookStart = createAsyncThunk(

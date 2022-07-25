@@ -7,7 +7,7 @@ import { deleteActions } from '../reducers/bookListDeleteBook';
 import { bookListFetchStart } from './bookListFetch';
 
 const bookListDeleteBookStartType = String(
-  Symbol('BOOK_LIST_DELETE_BOOK_START_TYPE')
+  Symbol('BOOK_LIST_DELETE_BOOK_START')
 );
 
 export const bookListDeleteBookStart = createAsyncThunk(
@@ -16,7 +16,7 @@ export const bookListDeleteBookStart = createAsyncThunk(
     try {
       const { id } = data;
       dispatch(deleteActions.bookDeleteInProgress());
-      await deleteBook({ id });
+      await deleteBook(id);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       dispatch(deleteActions.bookDeleteSuccess());
 
