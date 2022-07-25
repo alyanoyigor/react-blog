@@ -5,11 +5,11 @@ import {
   StyledIcon,
   StyledList,
   StyledListItem,
-  StyledListItemBtn,
+  StyledListItemButton,
 } from './styled';
 
 export const Pagination = (props) => {
-  const { itemsPerPage, itemsCount, currentPage, onPaginate } = props;
+  const { itemsPerPage, itemsCount, currentPage, onPaginate, theme } = props;
 
   const maxPageIndex = Math.ceil(itemsCount / itemsPerPage);
   const pageNumbers = Array.from(
@@ -24,37 +24,45 @@ export const Pagination = (props) => {
     <nav>
       <StyledList>
         <StyledListItem>
-          <StyledListItemBtn
+          <StyledListItemButton
+            theme={theme}
             disabled={previousPageIndex === 0}
             onClick={() => onPaginate(previousPageIndex)}
           >
             <StyledIcon as={ArrowBackIosNew} />
-          </StyledListItemBtn>
+          </StyledListItemButton>
         </StyledListItem>
         {pageNumbers.map((number) => (
           <StyledListItem key={number}>
-            <StyledListItemBtn
+            <StyledListItemButton
+              theme={theme}
               className={currentPage === number ? 'active' : ''}
               onClick={() => onPaginate(number)}
             >
               {number}
-            </StyledListItemBtn>
+            </StyledListItemButton>
           </StyledListItem>
         ))}
         <StyledListItem>
-          <StyledListItemBtn
+          <StyledListItemButton
+            theme={theme}
             onClick={() => onPaginate(nextPageIndex)}
             disabled={nextPageIndex === maxPageIndex + 1}
           >
             <StyledIcon as={ArrowForwardIos} />
-          </StyledListItemBtn>
+          </StyledListItemButton>
         </StyledListItem>
       </StyledList>
     </nav>
   );
 };
 
+Pagination.defaultProps = {
+  theme: 'dark',
+};
+
 Pagination.propTypes = {
+  theme: PropTypes.oneOf(['dark', 'light']),
   itemsPerPage: PropTypes.number.isRequired,
   itemsCount: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,

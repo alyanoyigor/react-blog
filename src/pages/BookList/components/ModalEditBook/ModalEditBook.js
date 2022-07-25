@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 
 import { bookType } from '../../../../propTypes/bookType';
 import { Modal } from '../../../../components/Modal';
-import { editBookSchema } from '../../validation';
+import { bookEditSchema } from '../../validation';
 import { bookListBeforeEditBookStart } from '../../thunks/bookListEditBook';
 import { BookForm } from '../BookForm';
 
@@ -39,7 +39,7 @@ export const ModalEditBook = (props) => {
       </Typography>
       <BookForm
         fetchLoading={fetchLoading}
-        schema={editBookSchema}
+        schema={bookEditSchema}
         onSubmit={handleEditBook}
         bookOptions={bookOptions}
         onCancel={handleClose}

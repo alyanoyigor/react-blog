@@ -29,14 +29,14 @@ Input.defaultProps = {
 
 Input.propTypes = {
   error: PropTypes.string,
+  type: PropTypes.string,
+  disabled: PropTypes.bool,
   valueWatcher: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
   inputOptions: PropTypes.shape({
-    name: PropTypes.string,
-    onChange: PropTypes.func,
-    onBlur: PropTypes.func,
-    ref: PropTypes.func,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func.isRequired,
+    ref: PropTypes.func.isRequired,
   }).isRequired,
 };

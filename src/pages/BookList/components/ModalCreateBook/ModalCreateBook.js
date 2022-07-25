@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 import { Modal } from '../../../../components/Modal';
 import { BookForm } from '../../components/BookForm';
-import { createBookSchema } from '../../validation';
+import { bookCreateSchema } from '../../validation';
 
 export const ModalCreateBook = (props) => {
   const { open, handleClose, loading, handleCreateBook } = props;
@@ -15,7 +15,7 @@ export const ModalCreateBook = (props) => {
         Create book
       </Typography>
       <BookForm
-        schema={createBookSchema}
+        schema={bookCreateSchema}
         onSubmit={handleCreateBook}
         onCancel={handleClose}
         loading={loading}

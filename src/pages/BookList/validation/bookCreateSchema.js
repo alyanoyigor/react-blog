@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const createBookSchema = yup.object({
+export const bookCreateSchema = yup.object({
   title: yup.string().required(),
   description: yup.string().required(),
   pages: yup

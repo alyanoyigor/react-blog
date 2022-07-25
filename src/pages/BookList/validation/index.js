@@ -1,2 +1,2 @@
-export { createBookSchema } from './createBookSchema';
-export { editBookSchema } from './editBookSchema';
+export { bookCreateSchema } from './bookCreateSchema';
+export { bookEditSchema } from './bookEditSchema';

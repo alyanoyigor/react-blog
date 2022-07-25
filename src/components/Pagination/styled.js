@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { IconButton } from '@mui/material';
-import styledEngine from '@mui/styled-engine';
+import { IconButton, styled as styledMUI } from '@mui/material';
 
 export const StyledList = styled.ul`
   display: flex;
@@ -14,34 +13,44 @@ export const StyledListItem = styled.li`
   display: flex;
 `;
 
-export const StyledListItemBtn = styledEngine(IconButton)`
-  width: 40px;
-  height: 40px;
-  color: #fafafa;
+export const StyledListItemButton = styledMUI(IconButton)((props) => ({
+  width: '40px',
+  height: '40px',
+  color: props.theme === 'dark' ? '#fafafa' : '#0a0a0a',
 
-  & .icon-pagination {
-    color: #ffffff;
-  }
+  '& .icon-pagination': {
+    color: props.theme === 'dark' ? '#fafafa' : '#0a0a0a',
+  },
 
-  &.active {
-    background-color: rgba(255, 255, 255, 0.08);
+  '&.active': {
+    backgroundColor:
+      props.theme === 'dark'
+        ? 'rgba(255, 255, 255, 0.08)'
+        : 'rgba(0, 0, 0, 0.08)',
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.12);
-    }
-  }
+    '&:hover': {
+      backgroundColor:
+        props.theme === 'dark'
+          ? 'rgba(255, 255, 255, 0.12)'
+          : 'rgba(0, 0, 0, 0.12)',
+    },
+  },
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-  }
+  '&:hover': {
+    backgroundColor:
+      props.theme === 'dark'
+        ? 'rgba(255, 255, 255, 0.04)'
+        : 'rgba(0, 0, 0, 0.04)',
+  },
 
-  &:disabled {
-    & .icon-pagination {
-      color: rgba(255, 255, 255, 0.3);
-    }
-  }
-`;
+  '&:disabled': {
+    '& .icon-pagination': {
+      color:
+        props.theme === 'dark'
+          ? 'rgba(255, 255, 255, 0.3)'
+          : 'rgba(0, 0, 0, 0.3)',
+    },
+  },
+}));
 
-export const StyledIcon = styled.div.attrs({ className: 'icon-pagination' })`
-  color: #ffffff;
-`;
+export const StyledIcon = styled.div.attrs({ className: 'icon-pagination' })``;

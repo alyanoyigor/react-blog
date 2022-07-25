@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { Error } from '../../components/Error';
 import { Pagination } from '../../components/Pagination';
 import { Preloader } from '../../components/Preloader';
-import { paginationChangePage } from '../../components/Pagination/reducers/pagination';
+import { paginationChangePage } from '../../store/pagination/reducer/pagination';
 
 import { ModalDeleteBook } from './components/ModalDeleteBook';
 import { ModalCreateBook } from './components/ModalCreateBook';
