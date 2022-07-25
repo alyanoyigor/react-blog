@@ -14,7 +14,7 @@ import client from './client';
  */
 
 /**
- * @param {AxiosRequestConfig<any>} config
+ * @param {AxiosRequestConfig<any>} [config]
  * @returns {Array<BookData> | Promise<never, string>}
  */
 export const getBookList = async (config) => {
