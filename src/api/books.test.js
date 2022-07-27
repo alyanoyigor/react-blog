@@ -41,12 +41,12 @@ describe('Testing books api funcs', () => {
       };
     });
 
-    test('getBookList runs', async () => {
+    test('should runs', async () => {
       await getBookList();
       expect(mockAxiosGet).toBeCalledTimes(1);
     });
 
-    test('getBookList succeeded', async () => {
+    test('should receive success data', async () => {
       mockAxiosGet.mockImplementationOnce(() => Promise.resolve(response));
 
       const booksData = await getBookList();
@@ -55,7 +55,7 @@ describe('Testing books api funcs', () => {
       expect(booksData.data.length).toBe(2);
     });
 
-    test('getBookList failed', async () => {
+    test('should receive failed data', async () => {
       mockAxiosGet.mockImplementationOnce(() => Promise.reject(failedResponse));
       await expect(getBookList).rejects.toEqual(failedResponse);
     });
@@ -79,7 +79,7 @@ describe('Testing books api funcs', () => {
       };
     });
 
-    test('getBookItem runs', async () => {
+    test('should runs', async () => {
       const bookId = '1';
       await getBookItem(bookId);
 
@@ -87,7 +87,7 @@ describe('Testing books api funcs', () => {
       expect(mockAxiosGet).toHaveBeenCalledWith(`/books/${bookId}`, undefined);
     });
 
-    test('getBookItem succeeded', async () => {
+    test('should receive success data', async () => {
       const bookId = '62de6ab61301da01ad8e4084';
       mockAxiosGet.mockImplementationOnce(() => Promise.resolve(response));
       const bookData = await getBookItem(bookId);
@@ -96,7 +96,7 @@ describe('Testing books api funcs', () => {
       expect(bookData.data._id).toBe(bookId);
     });
 
-    test('getBookItem failed', async () => {
+    test('should receive failed data', async () => {
       const bookId = '1';
       mockAxiosGet.mockImplementationOnce(() => Promise.reject(failedResponse));
 

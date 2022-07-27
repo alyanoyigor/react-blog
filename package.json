@@ -54,7 +54,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "cross-env CI=true npm test -- --env=jsdom --coverage",
+    "test:coverage": "CI=true yarn test --env=jsdom --coverage --colors",
     "eject": "react-scripts eject",
     "doc": "jsdoc -c jsdoc.json",
     "storybook": "start-storybook -p 6006 -s public",
@@ -74,6 +74,12 @@
           "import/no-anonymous-default-export": "off"
         }
       }
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.stories.js"
     ]
   },
   "browserslist": {
