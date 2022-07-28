@@ -19,8 +19,7 @@ import client from './client';
  */
 export const getBookList = async (config) => {
   try {
-    const booksData = await client.get('/books', config);
-    return booksData;
+    return await client.get('/books', config);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -33,8 +32,7 @@ export const getBookList = async (config) => {
  */
 export const getBookItem = async (bookId, config) => {
   try {
-    const bookData = await client.get(`/books/${bookId}`, config);
-    return bookData;
+    return await client.get(`/books/${bookId}`, config);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -52,8 +50,7 @@ export const getBookItem = async (bookId, config) => {
  */
 export const createBook = async (book) => {
   try {
-    const bookData = await client.post('/books', book);
-    return bookData;
+    return await client.post('/books', book);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -72,15 +69,14 @@ export const createBook = async (book) => {
 export const updateBook = async (data) => {
   try {
     const { id, bookOptions } = data;
-    const bookData = await client.patch(`/books/${id}`, bookOptions);
-    return bookData;
+    return await client.patch(`/books/${id}`, bookOptions);
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
 /**
- * @param {number} bookId
+ * @param {string | number} bookId
  * @returns {undefined | Promise<never, string>}
  */
 export const deleteBook = async (bookId) => {
