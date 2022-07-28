@@ -10,6 +10,10 @@ describe('Testing books api funcs', () => {
     mockAxiosGet = jest.spyOn(client, 'get');
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('Testing getBookList func', () => {
     beforeAll(() => {
       response = {
@@ -47,7 +51,7 @@ describe('Testing books api funcs', () => {
     });
 
     test('should receive success data', async () => {
-      mockAxiosGet.mockImplementationOnce(() => Promise.resolve(response));
+      mockAxiosGet.mockResolvedValueOnce(response);
 
       const booksData = await getBookList();
 
@@ -56,7 +60,7 @@ describe('Testing books api funcs', () => {
     });
 
     test('should receive failed data', async () => {
-      mockAxiosGet.mockImplementationOnce(() => Promise.reject(failedResponse));
+      mockAxiosGet.mockRejectedValueOnce(failedResponse);
       await expect(getBookList).rejects.toEqual(failedResponse);
     });
   });
@@ -80,7 +84,7 @@ describe('Testing books api funcs', () => {
     });
 
     test('should runs', async () => {
-      const bookId = '1';
+      const bookId = '62de6ab61301da01ad8e4084';
       await getBookItem(bookId);
 
       expect(mockAxiosGet).toBeCalledTimes(1);
@@ -89,7 +93,7 @@ describe('Testing books api funcs', () => {
 
     test('should receive success data', async () => {
       const bookId = '62de6ab61301da01ad8e4084';
-      mockAxiosGet.mockImplementationOnce(() => Promise.resolve(response));
+      mockAxiosGet.mockResolvedValueOnce(response);
       const bookData = await getBookItem(bookId);
 
       expect(bookData.error).toBe(false);
@@ -98,13 +102,9 @@ describe('Testing books api funcs', () => {
 
     test('should receive failed data', async () => {
       const bookId = '1';
-      mockAxiosGet.mockImplementationOnce(() => Promise.reject(failedResponse));
+      mockAxiosGet.mockRejectedValueOnce(failedResponse);
 
       await expect(() => getBookItem(bookId)).rejects.toEqual(failedResponse);
     });
-  });
-
-  afterAll(() => {
-    jest.clearAllMocks();
   });
 });
