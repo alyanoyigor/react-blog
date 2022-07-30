@@ -11,7 +11,7 @@ export const statisticsFetchStart = createAsyncThunk(
 
       return { data: bookList };
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error);
     }
   }
 );

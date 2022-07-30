@@ -9,7 +9,7 @@ export const statisticsFetchSuccessAction = (state, action) => {
   state.loading = false;
 };
 
-export const statisticsFetchErrorAction = (state) => {
+export const statisticsFetchErrorAction = (state, action) => {
   state.loading = false;
-  state.error = true;
+  state.error = action.payload;
 };

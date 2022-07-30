@@ -25,7 +25,7 @@ export const bookListCreateBookStart = createAsyncThunk(
       await dispatch(bookListFetchStart());
       toast.success('Book has been created successfully!');
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error);
       dispatch(createActions.bookCreateError());
     }
   }

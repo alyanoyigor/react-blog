@@ -14,10 +14,11 @@ import * as selectors from './selectors/bookItem';
 export const BookItem = () => {
   const { bookId } = useParams();
 
-  const loading = useSelector(selectors.bookItemLoadingSelector);
-
-  const bookData = useSelector(selectors.bookItemDataSelector);
-  const error = useSelector(selectors.bookItemErrorSelector);
+  const {
+    loading,
+    data: bookData,
+    error,
+  } = useSelector(selectors.bookItemSelector);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

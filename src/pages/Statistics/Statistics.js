@@ -18,8 +18,8 @@ export const Statistics = () => {
   useEffect(() => {
     dispatch(statisticsFetchStart());
     return () => {
-      dispatch(statisticsResetData())
-    }
+      dispatch(statisticsResetData());
+    };
   }, [dispatch]);
 
   return (

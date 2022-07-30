@@ -221,6 +221,7 @@ describe('Testing books api', () => {
     });
 
     test('should runs correct', async () => {
+      mockAxiosPatch.mockResolvedValueOnce(response);
       await updateBook({ id, bookOptions: enteredData });
 
       expect(mockAxiosPatch).toBeCalledTimes(1);
