@@ -24,30 +24,28 @@ describe('Testing bookItemFetchStart', () => {
     jest.clearAllMocks();
   });
 
-  test('should return data with valid id', async () => {
+  test('should return data', async () => {
     const { _id: id } = response;
     const dispatch = jest.fn();
 
     mockAxiosGet.mockResolvedValueOnce(response);
     const thunkFunction = bookItemFetchStart({ id });
-    const thunkPromise = thunkFunction(dispatch);
-
-    expect(dispatch).toHaveBeenNthCalledWith(
-      1,
-      bookItemFetchStart.pending(thunkPromise.requestId, { id })
-    );
-
-    await thunkPromise;
+    const thunkPromise = await thunkFunction(dispatch);
+    const fulfilledFetchArgs = [
+      { data: response },
+      thunkPromise.meta.requestId,
+      {
+        id,
+      },
+    ];
 
     expect(dispatch).toHaveBeenNthCalledWith(
       2,
-      bookItemFetchStart.fulfilled({ data: response }, thunkPromise.requestId, {
-        id,
-      })
+      bookItemFetchStart.fulfilled(...fulfilledFetchArgs)
     );
   });
 
-  test('should return error with invalid id', async () => {
+  test('should return error', async () => {
     const ERROR = 'ERROR';
     const id = '1';
     const dispatch = jest.fn();
@@ -55,23 +53,17 @@ describe('Testing bookItemFetchStart', () => {
     mockAxiosGet.mockRejectedValueOnce({ message: ERROR });
 
     const thunkFunction = bookItemFetchStart({ id });
-    const thunkPromise = thunkFunction(dispatch);
-
-    expect(dispatch).toHaveBeenNthCalledWith(
-      1,
-      bookItemFetchStart.pending(thunkPromise.requestId, { id })
-    );
-
-    await thunkPromise;
+    const thunkPromise = await thunkFunction(dispatch);
+    const rejectedFetchArgs = [
+      'Rejected',
+      thunkPromise.meta.requestId,
+      { id },
+      ERROR,
+    ];
 
     expect(dispatch).toHaveBeenNthCalledWith(
       2,
-      bookItemFetchStart.rejected(
-        'Rejected',
-        thunkPromise.requestId,
-        { id },
-        ERROR
-      )
+      bookItemFetchStart.rejected(...rejectedFetchArgs)
     );
   });
 });

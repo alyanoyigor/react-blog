@@ -5,9 +5,10 @@ describe('Testing bookItem reducer', () => {
   const initialState = { data: {}, error: null, loading: true };
 
   test('should return the initial state', () => {
-    expect(bookItemReducer(undefined, { type: undefined })).toEqual(
-      initialState
-    );
+    const action = { type: undefined };
+    const startedData = undefined;
+
+    expect(bookItemReducer(startedData, action)).toEqual(initialState);
   });
 
   test('should reset data', () => {
@@ -20,7 +21,7 @@ describe('Testing bookItem reducer', () => {
   });
 
   test('should pending fetch data', () => {
-    const action = { type: bookItemFetchStart.pending };
+    const action = { type: bookItemFetchStart.pending.type };
     const startedData = { data: {}, error: 'ERROR', loading: false };
     const expectedData = {
       data: {},
@@ -33,7 +34,7 @@ describe('Testing bookItem reducer', () => {
 
   test('should succeed fetch data', () => {
     const action = {
-      type: bookItemFetchStart.fulfilled,
+      type: bookItemFetchStart.fulfilled.type,
       payload: { data: { _id: '1' } },
     };
     const startedData = { data: {}, error: null, loading: true };
@@ -48,7 +49,7 @@ describe('Testing bookItem reducer', () => {
 
   test('should failed fetch data', () => {
     const action = {
-      type: bookItemFetchStart.rejected,
+      type: bookItemFetchStart.rejected.type,
     };
     const startedData = { data: {}, error: null, loading: true };
     const expectedData = {
