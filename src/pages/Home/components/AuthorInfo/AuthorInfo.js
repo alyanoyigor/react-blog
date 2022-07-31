@@ -7,6 +7,8 @@ import {
   StyledTitle,
 } from './styled';
 
+console.log(AuthorImagePath);
+
 export const AuthorInfo = () => {
   return (
     <StyledAuthorInfoContainer>

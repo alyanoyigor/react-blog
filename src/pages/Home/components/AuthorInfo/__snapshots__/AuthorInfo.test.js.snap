@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Author Info should match to snapshot 1`] = `
+<div>
+  <div
+    class="sc-hKMtZM kLqRXc"
+  >
+    <h1
+      class="sc-bczRLJ bmlJio"
+    >
+      Hi, I’m Igor
+      <p
+        class="special-title"
+      >
+        Frontend Developer
+      </p>
+    </h1>
+    <div
+      class="sc-gsnTZi kvsHCz"
+    >
+      <img
+        alt="Igor Alyanoy"
+        src="authorImage.jpeg"
+      />
+      <span
+        class="sc-dkzDqf kejsfl"
+      />
+    </div>
+  </div>
+</div>
+`;

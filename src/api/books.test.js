@@ -53,6 +53,7 @@ describe('Testing books api', () => {
     });
 
     test('should runs', async () => {
+      mockAxiosGet.mockResolvedValueOnce(response);
       await getBookList();
       expect(mockAxiosGet).toBeCalledTimes(1);
     });
@@ -161,6 +162,7 @@ describe('Testing books api', () => {
     });
 
     test('should runs', async () => {
+      mockAxiosPost.mockResolvedValueOnce(response);
       await createBook(enteredData);
 
       expect(mockAxiosPost).toBeCalledTimes(1);
