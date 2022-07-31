@@ -40,7 +40,13 @@ export const BookItem = () => {
             <span>Back</span>
           </StyledButton>
           <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-            <Typography textAlign="center" mb={1} variant="h4" component="h1">
+            <Typography
+              textAlign="center"
+              mb={1}
+              variant="h4"
+              component="h1"
+              data-testid="book-title"
+            >
               {bookData.title}
             </Typography>
             <Typography textAlign="center" variant="subtitle1" component="p">
