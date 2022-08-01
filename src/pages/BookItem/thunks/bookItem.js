@@ -12,7 +12,7 @@ export const bookItemFetchStart = createAsyncThunk(
 
       return { data: bookItem };
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error);
     }
   }
 );

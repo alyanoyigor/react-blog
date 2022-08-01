@@ -1,9 +1,16 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { act, screen, waitForElementToBeRemoved } from '@testing-library/react';
-import { renderWithRedux } from '../../test';
+import {
+  fireEvent,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { renderWithProviders } from '../../test';
+import { setupStore } from '../../store';
 import { BookItem } from './BookItem';
+
+const initialState = { loading: true, error: null, data: {} };
 
 const response = {
   _id: '62de6a961301da01ad8e4081',
@@ -17,19 +24,30 @@ const response = {
   __v: 0,
 };
 
+const bookItemOptions = {
+  route: `/books/${response._id}`,
+  params: '/books/:bookId',
+};
+
 const handlers = [
   rest.get('/books/:bookId', (req, res, ctx) => {
+    const bookId = req.params.bookId;
+
+    if (bookId !== response._id) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: 'Invalid id' }),
+        ctx.delay(200)
+      );
+    }
+
     return res(ctx.status(200), ctx.json({ data: response }), ctx.delay(200));
   }),
 ];
+
 const server = setupServer(...handlers);
 
 describe('BookItem', () => {
-  const bookItemOptions = {
-    route: `/books/${response._id}`,
-    params: '/books/:bookId',
-  };
-
   beforeAll(() => server.listen());
 
   afterEach(() => {
@@ -43,25 +61,57 @@ describe('BookItem', () => {
     expect(container).toBeInTheDocument();
   });
 
-  test('should call thunk inside useEffect after mounting', async () => {
-    act(() => {
-      renderWithProviders(<BookItem />, bookItemOptions);
-    });
-
-    await waitForElementToBeRemoved(() => screen.getByTestId('preloader'));
-
+  test('should call useEffect after mounting and get book data', async () => {
+    renderWithProviders(<BookItem />, bookItemOptions);
     const title = await screen.findByTestId('book-title');
+
     expect(title).toBeInTheDocument();
     expect(title.textContent).toEqual(response.title);
   });
 
-  // test('should reset data after unmounting', () => {});
+  test('should reset data after unmounting', async () => {
+    const store = setupStore();
+    const { unmount } = renderWithProviders(<BookItem />, {
+      ...bookItemOptions,
+      store,
+    });
 
-  // test('should show preloader when data is loading', () => {});
+    await waitForElementToBeRemoved(() => screen.getByTestId('preloader'));
+    unmount();
 
-  // test('should match to snapshot with success response data', () => {});
+    expect(store.getState().bookItem).toEqual(initialState);
+  });
 
-  // test('should match to snapshot with error response data', () => {});
+  test('should show preloader when data is loading', async () => {
+    renderWithProviders(<BookItem />, bookItemOptions);
+    const preloader = screen.getByTestId('preloader');
 
-  // test('should move to previous path after back button clicking', () => {});
+    expect(preloader).toBeInTheDocument();
+  });
+
+  test('should match to snapshot with success response data', async () => {
+    const { container } = renderWithProviders(<BookItem />, bookItemOptions);
+    await waitFor(() => screen.getByTestId('book-title'));
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should return error component when receive error data response', async () => {
+    renderWithProviders(<BookItem />, {
+      ...bookItemOptions,
+      route: '/books/1',
+    });
+    const error = await screen.findByTestId('error');
+
+    expect(error).toBeInTheDocument();
+  });
+
+  test('should move to previous path after back button clicking', async () => {
+    renderWithProviders(<BookItem />, bookItemOptions);
+    const goBackButton = await screen.findByText(/Back/i);
+
+    fireEvent.click(goBackButton);
+
+    expect(window.location.pathname).toBe('/');
+  });
 });

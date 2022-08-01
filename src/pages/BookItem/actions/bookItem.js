@@ -9,8 +9,7 @@ export const bookItemFetchSuccessAction = (state, action) => {
   state.loading = false;
 };
 
-export const bookItemFetchErrorAction = (state) => {
+export const bookItemFetchErrorAction = (state, action) => {
   state.loading = false;
-  state.error = true;
+  state.error = action.payload;
 };
-

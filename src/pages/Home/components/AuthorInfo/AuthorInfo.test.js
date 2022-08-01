@@ -7,6 +7,7 @@ describe('Author Info', () => {
     const { container } = render(<AuthorInfo />);
     expect(container).toBeInTheDocument();
   });
+
   test('should match to snapshot', () => {
     const { container } = render(<AuthorInfo />);
     expect(container).toMatchSnapshot();

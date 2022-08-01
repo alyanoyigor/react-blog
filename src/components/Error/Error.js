@@ -6,7 +6,7 @@ export const Error = (props) => {
   const { children } = props;
 
   return (
-    <Alert variant="filled" severity="error">
+    <Alert data-testid="error" variant="filled" severity="error">
       {children}
     </Alert>
   );

@@ -12,12 +12,10 @@ describe('Testing bookItem reducer', () => {
   });
 
   test('should reset data', () => {
-    expect(
-      bookItemReducer(
-        { data: { _id: '1' }, error: 'ERROR', loading: false },
-        bookItemResetData()
-      )
-    ).toEqual(initialState);
+    const startedData = { data: { _id: '1' }, error: 'ERROR', loading: false };
+    const action = bookItemResetData();
+
+    expect(bookItemReducer(startedData, action)).toEqual(initialState);
   });
 
   test('should pending fetch data', () => {
