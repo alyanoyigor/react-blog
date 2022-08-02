@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as actions from '../actions/pagination';
 
-const initialState = {
+export type SliceState = {
+  currentPage: number;
+  itemsPerPage: number;
+};
+
+const initialState: SliceState = {
   currentPage: 1,
   itemsPerPage: 10,
 };
 
-const paginationSliceName = String(Symbol('PAGINATION_SLICE'));
+const PAGINATION_SLICE_NAME = 'PAGINATION_SLICE';
 
 const paginationSlice = createSlice({
-  name: paginationSliceName,
+  name: PAGINATION_SLICE_NAME,
   initialState,
   reducers: {
     paginationChangePage: actions.paginationChangePageAction,

@@ -1,10 +1,14 @@
 import paginationReducer, {
   paginationChangePage,
   paginationChangeItemsPerPage,
+  SliceState,
 } from './pagination';
 
 describe('Testing pagination reducer', () => {
-  const initialState = { currentPage: 1, itemsPerPage: 10 };
+  const initialState: SliceState = {
+    currentPage: 1,
+    itemsPerPage: 10,
+  };
 
   test('should return the initial state', () => {
     expect(paginationReducer(undefined, { type: undefined })).toEqual(

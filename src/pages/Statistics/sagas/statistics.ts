@@ -17,6 +17,6 @@
 //   }
 // }
 
-// export function* statisticsFetchWatcher() {
-//   yield takeLatest(statisticsFetchStart.type, statisticsFetchSaga);
-// }
+export function* statisticsFetchWatcher() {
+  // yield takeLatest(statisticsFetchStart.type, statisticsFetchSaga);
+}

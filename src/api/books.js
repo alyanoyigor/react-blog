@@ -1,3 +1,4 @@
+import { Book } from '../types';
 import client from './client';
 
 /**
@@ -15,7 +16,7 @@ import client from './client';
 
 /**
  * @param {AxiosRequestConfig<any>} [config]
- * @returns {Array<BookData> | Promise<never, string>}
+ * @returns {Array<Book> | Promise<never, string>}
  */
 export const getBookList = async (config) => {
   try {

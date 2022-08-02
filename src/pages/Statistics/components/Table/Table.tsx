@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Paper,
   Table as MUITable,
@@ -10,10 +9,14 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 
-import { bookType } from '../../../../propTypes/bookType';
+import { Book } from '../../../../types';
 import { StyledTableCell, StyledTableRow } from './styled';
 
-export const Table = (props) => {
+type TableProps = {
+  bookList: Book[];
+};
+
+export const Table: React.FC<TableProps> = (props) => {
   const { bookList } = props;
 
   return (
@@ -31,7 +34,7 @@ export const Table = (props) => {
         </TableHead>
         <TableBody>
           {bookList.map((book, index) => {
-            const date = moment(book.publishDate).format('MMM DD, YYYY');
+            const date = moment(book.date).format('MMM DD, YYYY');
             return (
               <StyledTableRow key={book._id}>
                 <StyledTableCell component="th" scope="row">
@@ -49,8 +52,4 @@ export const Table = (props) => {
       </MUITable>
     </TableContainer>
   );
-};
-
-Table.propTypes = {
-  bookList: PropTypes.arrayOf(PropTypes.shape(bookType)).isRequired,
 };

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Error } from '../../components/Error';
 import { Preloader } from '../../components/Preloader';
+import { useAppDispatch } from '../../store';
 import { statisticsFetchStart } from './thunks/statistics';
 import { statisticsResetData } from './reducers/statistics';
 import { Table } from './components/Table';
@@ -9,7 +10,7 @@ import { Table } from './components/Table';
 import * as selectors from './selectors/statistics';
 
 export const Statistics = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const books = useSelector(selectors.statisticsDataSelector);
   const loading = useSelector(selectors.statisticsLoadingSelector);

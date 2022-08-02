@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../../../store';
 
-const statisticsStateSelector = (state) => state.statistics;
+const statisticsStateSelector = (state: RootState) => state.statistics;
 
 export const statisticsLoadingSelector = createSelector(
   statisticsStateSelector,

@@ -1,9 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Book } from './../../../types';
 import { statisticsFetchStart } from '../thunks/statistics';
 
 import * as actions from '../actions/statistics';
 
-const initialState = {
+export type SliceState = {
+  data: Book[];
+  error: string | null;
+  loading: boolean;
+};
+
+const initialState: SliceState = {
   data: [],
   error: null,
   loading: true,
@@ -20,15 +27,15 @@ const statisticsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(
-        statisticsFetchStart.pending,
+        statisticsFetchStart.pending.type,
         actions.statisticsFetchInProgressAction
       )
       .addCase(
-        statisticsFetchStart.fulfilled,
+        statisticsFetchStart.fulfilled.type,
         actions.statisticsFetchSuccessAction
       )
       .addCase(
-        statisticsFetchStart.rejected,
+        statisticsFetchStart.rejected.type,
         actions.statisticsFetchErrorAction
       );
   },

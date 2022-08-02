@@ -1,5 +1,0 @@
-export const MODAL_NAME = {
-  BOOK_CREATE: 'BOOK_CREATE',
-  BOOK_EDIT: 'BOOK_EDIT',
-  BOOK_DELETE: 'BOOK_DELETE',
-};
