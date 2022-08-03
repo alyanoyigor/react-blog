@@ -1,10 +1,15 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../../../store';
 
-const paginationStateSelector = (state) => state.pagination;
-const bookListFetchStateSelector = (state) => state.bookList.fetchBooks;
-const bookListCreateBookStateSelector = (state) => state.bookList.createBook;
-const bookListDeleteBookStateSelector = (state) => state.bookList.deleteBook;
-const bookListEditBookStateSelector = (state) => state.bookList.editBook;
+const paginationStateSelector = (state: RootState) => state.pagination;
+const bookListFetchStateSelector = (state: RootState) =>
+  state.bookList.fetchBooks;
+const bookListCreateBookStateSelector = (state: RootState) =>
+  state.bookList.createBook;
+const bookListDeleteBookStateSelector = (state: RootState) =>
+  state.bookList.deleteBook;
+const bookListEditBookStateSelector = (state: RootState) =>
+  state.bookList.editBook;
 
 export const bookListCreateSelector = createSelector(
   bookListCreateBookStateSelector,

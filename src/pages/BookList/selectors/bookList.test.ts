@@ -1,10 +1,11 @@
+import { RootState } from '../../../store';
 import {
   bookListCurrentBooksSelector,
   bookListPaginationSelector,
 } from './bookList';
 
 describe('bookList selectors', () => {
-  let state;
+  let state: RootState;
   beforeEach(() => {
     state = {
       bookList: {

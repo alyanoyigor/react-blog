@@ -46,13 +46,15 @@ describe('Testing bookItem reducer', () => {
   });
 
   test('should failed fetch data', () => {
+    const ERROR = 'ERROR';
     const action = {
       type: bookItemFetchStart.rejected.type,
+      payload: ERROR,
     };
     const startedData = { data: {}, error: null, loading: true };
     const expectedData = {
       data: {},
-      error: true,
+      error: ERROR,
       loading: false,
     };
 

@@ -58,7 +58,7 @@ describe('Testing bookItemFetchStart', () => {
       'Rejected',
       thunkPromise.meta.requestId,
       { id },
-      ERROR,
+      { message: ERROR },
     ];
 
     expect(dispatch).toHaveBeenNthCalledWith(

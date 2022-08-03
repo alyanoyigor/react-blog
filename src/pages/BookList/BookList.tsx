@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 
 import { Error } from '../../components/Error';
@@ -30,9 +30,11 @@ import { bookListResetData } from './reducers/bookListFetch';
 import { BookCardListSkeleton } from './components/BookCardListSkeleton';
 
 import { StyledCreateButton } from './styled';
+import { useAppDispatch } from '../../store';
+import { Book } from '../../types';
 
 export const BookList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const {
     data: books,
@@ -61,7 +63,7 @@ export const BookList = () => {
   const currentBooks = useSelector(selectors.bookListCurrentBooksSelector);
 
   const handlePaginate = useCallback(
-    (pageNumber) => {
+    (pageNumber: number) => {
       dispatch(paginationChangePage({ page: pageNumber }));
     },
     [dispatch]
@@ -72,7 +74,7 @@ export const BookList = () => {
   }, [dispatch]);
 
   const handleEditModalOpen = useCallback(
-    (bookData) => {
+    (bookData: Book) => {
       dispatch(bookListGetEditBookFetchData({ data: bookData }));
       dispatch(modalOpen({ name: MODAL_NAME.BOOK_EDIT }));
     },
@@ -80,7 +82,7 @@ export const BookList = () => {
   );
 
   const handleDeleteModalOpen = useCallback(
-    (deletedBookData) => {
+    (deletedBookData: Book) => {
       dispatch(
         deleteActions.bookListGetDeletedBookData({ data: deletedBookData })
       );
@@ -104,14 +106,14 @@ export const BookList = () => {
   }, [dispatch]);
 
   const handleDeleteBookSubmit = useCallback(
-    (id) => {
+    (id: string) => {
       dispatch(bookListDeleteBookStart({ id }));
     },
     [dispatch]
   );
 
   const handleEditBookSubmit = useCallback(
-    (data) => {
+    (data: Book) => {
       dispatch(
         bookListEditBookStart({ bookData: { bookOptions: data, id: data._id } })
       );
@@ -120,7 +122,7 @@ export const BookList = () => {
   );
 
   const handleCreateBookSubmit = useCallback(
-    (data) => {
+    (data: Book) => {
       dispatch(bookListCreateBookStart({ bookData: data }));
     },
     [dispatch]

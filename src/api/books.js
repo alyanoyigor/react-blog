@@ -1,4 +1,4 @@
-import { Book } from '../types';
+import { Book, BookUpdate, BookCreate } from '../types';
 import client from './client';
 
 /**
@@ -27,9 +27,9 @@ export const getBookList = async (config) => {
 };
 
 /**
- * @param {number} bookId
+ * @param {string} bookId
  * @param {AxiosRequestConfig<any>} config
- * @returns {BookData | Promise<never, string>}
+ * @returns {Book | Promise<never, string>}
  */
 export const getBookItem = async (bookId, config) => {
   try {
@@ -40,13 +40,7 @@ export const getBookItem = async (bookId, config) => {
 };
 
 /**
- * @typedef {Object} BookCreateData
- * @property {string}  title
- * @property {string}  description
- * @property {number}  pages
- * @property {number}  excerpt
- *
- * @param {BookCreateData} book
+ * @param {BookCreate} book
  * @returns {BookData | Promise<never, string>}
  */
 export const createBook = async (book) => {
@@ -58,13 +52,7 @@ export const createBook = async (book) => {
 };
 
 /**
- * @typedef {Object} BookUpdateData
- * @property {string}  [title]
- * @property {string}  [description]
- * @property {number}  [pages]
- * @property {number}  [excerpt]
- *
- * @param {{id: number, bookOptions: BookUpdateData}} data
+ * @param {{id: string, bookOptions: BookUpdate}} data
  * @returns {BookData | Promise<never, string>}
  */
 export const updateBook = async (data) => {

@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getBookList } from '../../../api/books';
+import { Book } from '../../../types';
 
 const bookListFetchStartType = String(Symbol('BOOK_LIST_FETCH_START'));
 
-export const bookListFetchStart = createAsyncThunk(
+export const bookListFetchStart = createAsyncThunk<{ data: Book[] }, never>(
   bookListFetchStartType,
   async (_data, { rejectWithValue, signal }) => {
     try {
