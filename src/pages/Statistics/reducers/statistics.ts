@@ -4,22 +4,22 @@ import { statisticsFetchStart } from '../thunks/statistics';
 
 import * as actions from '../actions/statistics';
 
-export type SliceState = {
+export type StatisticsState = {
   data: Book[];
   error: string | null;
   loading: boolean;
 };
 
-const initialState: SliceState = {
+const initialState: StatisticsState = {
   data: [],
   error: null,
   loading: true,
 };
 
-const statisticsSliceName = String(Symbol('STATISTICS_SLICE'));
+const STATISTICS_SLICE_NAME = 'STATISTICS_SLICE';
 
 const statisticsSlice = createSlice({
-  name: statisticsSliceName,
+  name: STATISTICS_SLICE_NAME,
   initialState,
   reducers: {
     statisticsResetData: () => initialState,

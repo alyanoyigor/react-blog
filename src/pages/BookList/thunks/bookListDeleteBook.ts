@@ -7,15 +7,13 @@ import { deleteActions } from '../reducers/bookListDeleteBook';
 
 import { bookListFetchStart } from './bookListFetch';
 
-const bookListDeleteBookStartType = String(
-  Symbol('BOOK_LIST_DELETE_BOOK_START')
-);
+const BOOK_LIST_DELETE_BOOK_START_TYPE = 'BOOK_LIST_DELETE_BOOK_START';
 
 export const bookListDeleteBookStart = createAsyncThunk<
   void,
   { id: string },
   { dispatch: AppDispatch }
->(bookListDeleteBookStartType, async (data, { dispatch }) => {
+>(BOOK_LIST_DELETE_BOOK_START_TYPE, async (data, { dispatch }) => {
   try {
     const { id } = data;
     dispatch(deleteActions.bookDeleteInProgress());
@@ -29,7 +27,7 @@ export const bookListDeleteBookStart = createAsyncThunk<
     await dispatch(bookListFetchStart());
     toast.success('Book has been deleted successfully!');
   } catch (error) {
-    dispatch(deleteActions.bookDeleteError());
+    dispatch(deleteActions.bookDeleteError({ error: error as string }));
     toast.error(error as string);
   }
 });

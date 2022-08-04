@@ -1,23 +1,24 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Book } from '../../../types';
-import { StatisticsState } from '../reducers/statistics';
+import { BookItemState } from '../reducers/bookItem';
 
-export const statisticsFetchInProgressAction = (state: StatisticsState) => {
+export const bookItemFetchInProgressAction = (state: BookItemState) => {
   state.loading = true;
   state.error = null;
 };
 
-export const statisticsFetchSuccessAction = (
-  state: StatisticsState,
-  action: PayloadAction<{ data: Book[] }>
+export const bookItemFetchSuccessAction = (
+  state: BookItemState,
+  action: PayloadAction<{ data: Book }>
 ) => {
   const { data } = action.payload;
+
   state.data = data;
   state.loading = false;
 };
 
-export const statisticsFetchErrorAction = (
-  state: StatisticsState,
+export const bookItemFetchErrorAction = (
+  state: BookItemState,
   action: PayloadAction<{ error: string }>
 ) => {
   const { error } = action.payload;

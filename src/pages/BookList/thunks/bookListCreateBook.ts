@@ -8,15 +8,13 @@ import { createActions } from '../reducers/bookListCreateBook';
 import { bookListFetchStart } from './bookListFetch';
 import { AppDispatch } from '../../../store';
 
-const bookListCreateBookStartType = String(
-  Symbol('BOOK_LIST_CREATE_BOOK_START')
-);
+const BOOK_LIST_CREATE_BOOK_START_TYPE = 'BOOK_LIST_CREATE_BOOK_START';
 
 export const bookListCreateBookStart = createAsyncThunk<
   void,
   { bookData: BookCreate },
   { dispatch: AppDispatch }
->(bookListCreateBookStartType, async (data, { dispatch }) => {
+>(BOOK_LIST_CREATE_BOOK_START_TYPE, async (data, { dispatch }) => {
   try {
     const { bookData } = data;
     dispatch(createActions.bookCreateInProgress());
@@ -29,7 +27,7 @@ export const bookListCreateBookStart = createAsyncThunk<
     await dispatch(bookListFetchStart());
     toast.success('Book has been created successfully!');
   } catch (error) {
-    dispatch(createActions.bookCreateError());
+    dispatch(createActions.bookCreateError({ error: error as string }));
     toast.error(error as string);
   }
 });

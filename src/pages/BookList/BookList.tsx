@@ -31,7 +31,7 @@ import { BookCardListSkeleton } from './components/BookCardListSkeleton';
 
 import { StyledCreateButton } from './styled';
 import { useAppDispatch } from '../../store';
-import { Book } from '../../types';
+import { Book, BookCreate } from '../../types';
 
 export const BookList = () => {
   const dispatch = useAppDispatch();
@@ -122,7 +122,7 @@ export const BookList = () => {
   );
 
   const handleCreateBookSubmit = useCallback(
-    (data: Book) => {
+    (data: BookCreate) => {
       dispatch(bookListCreateBookStart({ bookData: data }));
     },
     [dispatch]

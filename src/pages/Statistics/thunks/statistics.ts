@@ -12,7 +12,7 @@ export const statisticsFetchStart = createAsyncThunk<
   try {
     const bookList = await getBookList();
 
-    return { data: bookList };
+    return { data: bookList } as any;
   } catch (error) {
     return rejectWithValue({ error: error as string });
   }

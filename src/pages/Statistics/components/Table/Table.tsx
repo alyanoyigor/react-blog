@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Paper,
   Table as MUITable,
@@ -10,13 +11,14 @@ import {
 import moment from 'moment';
 
 import { Book } from '../../../../types';
+import { bookType } from '../../../../propTypes/bookType';
 import { StyledTableCell, StyledTableRow } from './styled';
 
 type TableProps = {
   bookList: Book[];
 };
 
-export const Table: React.FC<TableProps> = (props) => {
+export const Table = (props: TableProps) => {
   const { bookList } = props;
 
   return (
@@ -52,4 +54,8 @@ export const Table: React.FC<TableProps> = (props) => {
       </MUITable>
     </TableContainer>
   );
+};
+
+Table.propTypes = {
+  bookList: PropTypes.arrayOf(PropTypes.shape(bookType)).isRequired,
 };

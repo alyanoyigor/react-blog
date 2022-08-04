@@ -34,34 +34,36 @@ export const bookListEditBookStart = createAsyncThunk<
     await dispatch(bookListFetchStart());
     toast.success('Book has been updated successfully!');
   } catch (error) {
-    // error.message
-    dispatch(bookEditError());
+    dispatch(bookEditError({ error: error as string }));
     toast.error(error as string);
   }
 });
 
-const bookListBeforeEditBookStartType = String(
-  Symbol('BOOK_LIST_BEFORE_EDIT_BOOK_START')
-);
+const BOOK_LIST_BEFORE_EDIT_BOOK_START_TYPE =
+  'BOOK_LIST_BEFORE_EDIT_BOOK_START';
 
 export const bookListBeforeEditBookStart = createAsyncThunk<
   { data: Book } | undefined,
   { id: string }
->(bookListBeforeEditBookStartType, async (data, { signal }) => {
-  try {
-    const source = axios.CancelToken.source();
-    signal.addEventListener('abort', () => {
-      source.cancel();
-    });
+>(
+  BOOK_LIST_BEFORE_EDIT_BOOK_START_TYPE,
+  async (data, { signal, rejectWithValue }) => {
+    try {
+      const source = axios.CancelToken.source();
+      signal.addEventListener('abort', () => {
+        source.cancel();
+      });
 
-    const { id } = data;
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const bookData = await getBookItem(id, { cancelToken: source.token });
+      const { id } = data;
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const bookData = await getBookItem(id, { cancelToken: source.token });
 
-    return { data: bookData };
-  } catch (error: any) {
-    if (error?.code !== 'ERR_CANCELED') {
-      toast.error(error.message);
+      return { data: bookData } as any;
+    } catch (error: any) {
+      if (error?.code !== 'ERR_CANCELED') {
+        toast.error(error.message);
+      }
+      return rejectWithValue(error);
     }
   }
-});
+);
