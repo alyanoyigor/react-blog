@@ -46,7 +46,6 @@ export const BookCard = (props: BookCardProps) => {
   return (
     <StyledCardContainer>
       <StyledBookCard>
-        {/* aria-describedby={menuId} */}
         <StyledIconButton onClick={onClick}>
           <MoreVertIcon />
         </StyledIconButton>
