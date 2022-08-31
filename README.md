@@ -9,6 +9,11 @@ React blog is a simple blog simulation with ability to creating, updating and de
 - TypeScript
 - Material UI
 - React Hook Form with Yup
+- Storybook
+- Jest
+- JS Doc
+- Moment JS
+- React tostify
 
 #### Deploy
 
