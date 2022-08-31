@@ -1,6 +1,6 @@
 # React Blog
 
-React blog is simple blog simulation with ability to creating, updating and deleting books.
+React blog is a simple blog simulation with ability to creating, updating and deleting books.
 
 #### Tech stack
 
@@ -13,6 +13,6 @@ React blog is simple blog simulation with ability to creating, updating and dele
 #### Deploy
 
 > **Warning** <br />
-> For testing application you need run backend from this repo https://github.com/alyanoyigor/booksshelf-api
+> For testing application you need run backend from this repo https://github.com/alyanoyigor/bookshelf-api
 
 Deploy: https://alyanoyigor.github.io/react-blog
