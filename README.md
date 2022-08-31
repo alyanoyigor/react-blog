@@ -8,12 +8,15 @@ React blog is a simple blog simulation with ability to creating, updating and de
 - Redux Toolkit
 - TypeScript
 - Material UI
+- Styled Components
 - React Hook Form with Yup
 - Storybook
 - Jest
+- React Testing Library
 - JS Doc
 - Moment JS
 - React tostify
+- Axios
 
 #### Deploy
 
